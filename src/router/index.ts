@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-01-29
+ * @LastEditTime: 2023-02-06
  * @FilePath: /RabiBear-Home-Web/src/router/index.ts
  * @Description: 
  * 
@@ -33,6 +33,11 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/WhatToEat.vue')
+    },
+    {
+      path: '/tracker',
+      name: 'tracker',
+      component: () => import('../views/Tracker.vue')
     }
   ]
 })

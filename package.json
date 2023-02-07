@@ -10,8 +10,10 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "echarts": "^5.4.1",
     "element-plus": "^2.2.28",
     "vue": "^3.2.45",
+    "vue-activity-calendar": "^1.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

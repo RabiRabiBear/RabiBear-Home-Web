@@ -20,17 +20,25 @@ import HelloWorld from './components/HelloWorld.vue'
       <el-menu-item index="2"><RouterLink to="/about">Gallery</RouterLink></el-menu-item>
       <el-menu-item index="3"><RouterLink to="/about">Timelines</RouterLink></el-menu-item>
       <el-menu-item index="4"><RouterLink to="/about">100 Things & Wish List</RouterLink></el-menu-item>
+      <el-menu-item index="11"><RouterLink to="/tracker">Tracker</RouterLink></el-menu-item>
       <el-menu-item index="5"><RouterLink to="/about">Whisper</RouterLink></el-menu-item>
       <el-menu-item index="6"><RouterLink to="/what_to_eat">What To Eat</RouterLink></el-menu-item>
+      <el-menu-item index="6"><RouterLink to="/about">Records</RouterLink></el-menu-item>
       
       <el-sub-menu index="7">
+        <template #title>Tools</template>
+        <el-menu-item index="7-1"><RouterLink to="/what_to_eat">What To Eat</RouterLink></el-menu-item>
+        <el-menu-item index="7-2"><RouterLink to="/tracker">Tracker</RouterLink></el-menu-item>
+      </el-sub-menu>
+
+      <!-- <el-sub-menu index="7">
         <template #title>Records</template>
         <el-menu-item index="7-1">On Movies</el-menu-item>
         <el-menu-item index="7-2">On Games</el-menu-item>
         <el-menu-item index="7-3">On The Way</el-menu-item>
         <el-menu-item index="7-4">Recipes</el-menu-item>
         <el-menu-item index="7-5">Tracking</el-menu-item>
-      </el-sub-menu>
+      </el-sub-menu> -->
 
       
       
@@ -38,6 +46,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <template #title><img alt="logo" src="@/assets/imgs/heart_key.png" width="40" height="40" /></template>
         <el-menu-item index="8-1">Accounting</el-menu-item>
         <el-menu-item index="8-2">Photos</el-menu-item>
+        <el-menu-item index="8-2">Expiry Alert</el-menu-item>
         <!-- <el-menu-item index="3-3">Diary</el-menu-item> -->
       </el-sub-menu>
     </el-menu>
