@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-02-07
+ * @LastEditTime: 2023-02-20
  * @FilePath: /RabiBear-Home-Web/src/main.ts
  * @Description: 
  * 
@@ -19,6 +19,7 @@ import "vue-activity-calendar/style.css";
  
 
 import './assets/main.css'
+
 
 const app = createApp(App)
 

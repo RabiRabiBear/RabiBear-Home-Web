@@ -14,6 +14,19 @@
     :levelFlagText="levels"
     :levelMapper="levelMapper"
   />
+
+  <div>
+    Daily TODO
+    <el-checkbox-group v-model="checkList">
+      <el-checkbox label="Option A" />
+      <el-checkbox label="Option B" />
+      <el-checkbox label="Option C" />
+      <el-button round @click="addNewItem">+</el-button>
+      <el-input v-model="input" v-if="show_input" placeholder="Add new item" />
+  </el-checkbox-group>
+  </div>
+  
+
 </template>
 
 
@@ -38,5 +51,14 @@ function levelMapper(count) {
     return 5;
   }
 }
+
+const checkList = ref([])
+var show_input = false
+const input = ref('')
+
+function addNewItem() {
+  show_input = !show_input
+}
+
 
 </script>

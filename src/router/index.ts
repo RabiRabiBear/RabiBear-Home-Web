@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-02-06
+ * @LastEditTime: 2023-03-04
  * @FilePath: /RabiBear-Home-Web/src/router/index.ts
  * @Description: 
  * 
@@ -38,7 +38,12 @@ const router = createRouter({
       path: '/tracker',
       name: 'tracker',
       component: () => import('../views/Tracker.vue')
-    }
+    },
+    // {
+    //   path: '/web_labeler',
+    //   name: 'web_labeler',
+    //   component: () => import('../views/ .vue')
+    // }
   ]
 })
 

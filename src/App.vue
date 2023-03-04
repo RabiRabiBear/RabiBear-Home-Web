@@ -29,6 +29,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <template #title>Tools</template>
         <el-menu-item index="7-1"><RouterLink to="/what_to_eat">What To Eat</RouterLink></el-menu-item>
         <el-menu-item index="7-2"><RouterLink to="/tracker">Tracker</RouterLink></el-menu-item>
+        <el-menu-item index="7-3"><RouterLink to="/web_labeler">Web Labeler</RouterLink></el-menu-item>
       </el-sub-menu>
 
       <!-- <el-sub-menu index="7">
@@ -62,38 +63,28 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
-/* header {
-  line-height: 1.5;
-  max-height: 100vh;
-} */
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+
+.el-container {
+  background-color: aliceblue;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
 
-nav a.router-link-exact-active {
+.el-menu a.router-link-exact-active {
   color: var(--color-text);
 }
 
-nav a.router-link-exact-active:hover {
+.el-menu a.router-link-exact-active:hover {
   background-color: transparent;
 }
 
-nav a {
+.el-menu a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
 }
 
-nav a:first-of-type {
+.el-menu  a:first-of-type {
   border: 0;
 }
 
@@ -101,11 +92,12 @@ nav a:first-of-type {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    /* padding-right: calc(var(--section-gap) / 2); */
   }
 
   .logo {
-    margin: 0 2rem 0 0;
+    display: block;
+    margin: 0;
   }
 
   header .wrapper {
@@ -114,13 +106,12 @@ nav a:first-of-type {
     flex-wrap: wrap;
   }
 
-  nav {
+  .el-menu  {
     text-align: left;
-    margin-left: -1rem;
+    /* margin-left: -1rem; */
     font-size: 1rem;
-
-    padding: 1rem 0;
     margin-top: 1rem;
   }
+
 }
 </style>
