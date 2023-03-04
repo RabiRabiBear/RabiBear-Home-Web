@@ -57,7 +57,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <el-main><RouterView /></el-main>
     
-    <el-footer>This is a Footer</el-footer>
+
+    <el-footer>
+      <el-divider>
+        ˗ˋˏ꒰ঌ ♡ ໒꒱ྀིˎˊ˗   
+      </el-divider>
+      ❤ Copyright © 2023 RabiBear. All rights reserved. ❤
+    </el-footer>
   </el-container>
   
 </template>
@@ -69,6 +75,9 @@ import HelloWorld from './components/HelloWorld.vue'
   background-color: aliceblue;
 }
 
+.el-footer{
+  margin: 2rem auto;
+}
 
 .el-menu a.router-link-exact-active {
   color: var(--color-text);
@@ -104,6 +113,7 @@ import HelloWorld from './components/HelloWorld.vue'
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+    width: 100%;
   }
 
   .el-menu  {
@@ -111,6 +121,8 @@ import HelloWorld from './components/HelloWorld.vue'
     /* margin-left: -1rem; */
     font-size: 1rem;
     margin-top: 1rem;
+    /* max-width: 500px; */
+    width: 100%;
   }
 
 }
