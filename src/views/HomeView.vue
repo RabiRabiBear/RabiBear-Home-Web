@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-03-05
+ * @LastEditTime: 2023-03-06
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -9,8 +9,46 @@
 -->
 
 <template>
-  <main>
-    <el-row>
+  <main class="card_view">
+    <!-- gutter specify the spacing between columns -->
+    <!-- span: means that each column will take up 8/24 or one-third of the total width -->
+    <el-row :gutter="0">
+      <el-col :span="6">
+        <el-card shadow="hover"> Hover </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover"> Hover </el-card>
+    </el-col>
+    <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover"> Hover </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover"> Hover </el-card>
+    </el-col>
+  </el-row>
+  <!-- <el-row>
       <el-col
         v-for="(o, index) in 2"
         :key="o"
@@ -27,14 +65,16 @@
             <div class="bottom">
               <time class="time">{{ currentDate }}</time>
               <el-button text class="button">Operating</el-button>
+              </div>
             </div>
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
-        </el-card>
-      </el-col>
-    </el-row>
+          </el-card>
+        
+        </el-col>
+      
+      </el-row>
+      <el-card class="box-card">
+            <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+          </el-card> -->
   </main>
 </template>
 
@@ -45,8 +85,8 @@ import { ref } from 'vue'
 const currentDate = ref(new Date())
 </script>
 
-<style>
-.time {
+<style scoped>
+/* .time {
   font-size: 12px;
   color: #999;
 }
@@ -62,11 +102,11 @@ const currentDate = ref(new Date())
 .button {
   padding: 0;
   min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
+} */
+.card_view {
+  width: 90%;
+  margin: 0 auto;
+  /* background-color: aquamarine; */
 }
 
 .text {
@@ -77,8 +117,14 @@ const currentDate = ref(new Date())
   padding: 18px 0;
 }
 
-.box-card {
-  width: 480px;
+.el-card {
+  height: 200px;
+}
+
+.card_img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
 </style>
