@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-03-06
+ * @LastEditTime: 2023-03-07
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -9,6 +9,10 @@
 -->
 
 <template>
+  <div class="title">
+    <h1 style="font-size: xx-large;">Rabbit & Bear</h1>
+    <h2>Welcome to our story</h2>
+  </div>
   <main class="card_view">
     <!-- gutter specify the spacing between columns -->
     <!-- span: means that each column will take up 8/24 or one-third of the total width -->
@@ -86,6 +90,19 @@ const currentDate = ref(new Date())
 </script>
 
 <style scoped>
+
+/* @import url('https://fonts.googleapis.com/css?family=Inconsolata|Oswald'); */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script:wght@500;700&display=swap');
+.title {
+  /* font-family: 'Inconsolata', sans-serif; */
+  font-family: 'Parisienne', cursive;
+  /* font-family: 'Dancing Script', cursive; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  /* color: red; */
+}
+
 /* .time {
   font-size: 12px;
   color: #999;

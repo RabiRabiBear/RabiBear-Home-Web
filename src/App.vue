@@ -88,6 +88,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
+
 @media (min-width: 1024px) {
 
   .el-menu {
