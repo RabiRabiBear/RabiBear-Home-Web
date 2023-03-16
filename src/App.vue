@@ -82,6 +82,9 @@ import HelloWorld from './components/HelloWorld.vue'
       <el-divider>
         ˗ˋˏ꒰ঌ ♡ ໒꒱ྀིˎˊ˗
       </el-divider>
+      <!-- <el-divider>
+       <p style="background-color: #FFFFFB;">asss</p>
+      </el-divider> -->
       ❤ Copyright © 2023 RabiBear. All rights reserved. ❤
     </el-footer>
   </el-container>
@@ -92,14 +95,15 @@ import HelloWorld from './components/HelloWorld.vue'
 @media (min-width: 1024px) {
 
   .el-menu {
-    text-align: left;
+    background-color: #FFFFFB;
+    /* text-align: left; */
     font-size: 1rem;
     margin-top: 1rem;
     width: 100%;
   }
 
   .el-main {
-    text-align: left;
+    /* text-align: left; */
     font-size: 1rem;
     margin-top: 1rem;
     /* max-width: 500px; */
@@ -107,7 +111,8 @@ import HelloWorld from './components/HelloWorld.vue'
   }
 
   .el-container {
-    background-color: aliceblue;
+    background-color: #FFFFFB;
+    /* background-color: #fffffc; */
   }
 
   .el-footer {
@@ -115,17 +120,22 @@ import HelloWorld from './components/HelloWorld.vue'
   }
 
   .el-menu a.router-link-exact-active {
-    color: var(--color-text);
+    /* color: var(--color-text); */
+    color: red;
   }
 
   .el-menu a.router-link-exact-active:hover {
-    background-color: transparent;
+    /* background-color: transparent; */
+    font-weight: bold;
+    /* background-color: red; */
   }
 
   .el-menu a {
     display: inline-block;
     padding: 0 1rem;
-    border-left: 1px solid var(--color-border);
+    /* border-left: 1px solid var(--color-border); */
+    /* border-left-color: red; */
+    /* #fefefe; */
   }
 
   .el-menu a:first-of-type {

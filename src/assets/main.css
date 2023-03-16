@@ -29,7 +29,8 @@ a,
   body {
     display: flex;
     place-items: center;
-    background-color: pink;
+    background-color: #fdeff2;
+    /* background-color: aliceblue; */
   }
 
   /* #app {

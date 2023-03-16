@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-03-07
+ * @LastEditTime: 2023-03-16
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -9,9 +9,34 @@
 -->
 
 <template>
-  <div class="title">
-    <h1 style="font-size: xx-large;">Rabbit & Bear</h1>
-    <h2>Welcome to our story</h2>
+  <!-- <div class="title">
+    <img> 
+    
+  </div> -->
+  <div class="article">
+    <div class="border" style="display: flex; justify-content: space-between;">
+      <img style="max-width: 10%;" src="../assets/imgs/home_card/border1.png" />
+      <img style="max-width: 30%; object-fit: contain;" src="../assets/imgs/home_card/rose_divider1.png" />
+      <img style="max-width: 10%; transform: scaleX(-1);" src="../assets/imgs/home_card/border1.png" />
+    </div>
+    
+    <h1>Rabbit & Bear</h1>
+    <h2> Welcome to our story</h2>
+    <p> Love alters not with his brief hours and weeks. <br>
+
+      But bears it out even to the edge of doom. <br>
+
+      If this be error and upon me proved. <br>
+
+      I never writ, nor no man ever loved. <br>
+
+    </p>
+
+    <div class="border" style="display: flex; justify-content: space-between;">
+      <img style="max-width: 10%; transform: scaleY(-1);" src="../assets/imgs/home_card/border1.png" />
+      <img style="max-width: 30%; object-fit: contain;" src="../assets/imgs/home_card/rose_divider2.png" />
+      <img style="max-width: 10%; transform: scale(-1, -1);" src="../assets/imgs/home_card/border1.png" />
+    </div>
   </div>
   <main class="card_view">
     <!-- gutter specify the spacing between columns -->
@@ -27,29 +52,29 @@
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover"> Hover </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="6">
+        <el-card shadow="hover" :body-style="{ padding: '0px' }">
+          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover"> Hover </el-card>
+      </el-col>
+    <el-col :span="6">
+      <el-card shadow="hover" :body-style="{ padding: '0px' }">
+        <img class="card_img" src="../assets/imgs/home_card/card.png" />
+      </el-card>
     </el-col>
     <el-col :span="6">
-        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
-        </el-card>
-      </el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="6">
-        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover"> Hover </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover"> Hover </el-card>
+      <el-card shadow="hover"> Hover </el-card>
     </el-col>
   </el-row>
   <!-- <el-row>
@@ -69,16 +94,16 @@
             <div class="bottom">
               <time class="time">{{ currentDate }}</time>
               <el-button text class="button">Operating</el-button>
+                </div>
               </div>
-            </div>
-          </el-card>
+            </el-card>
         
-        </el-col>
+          </el-col>
       
-      </el-row>
-      <el-card class="box-card">
-            <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
-          </el-card> -->
+        </el-row>
+        <el-card class="box-card">
+              <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+            </el-card> -->
   </main>
 </template>
 
@@ -90,18 +115,39 @@ const currentDate = ref(new Date())
 </script>
 
 <style scoped>
-
 /* @import url('https://fonts.googleapis.com/css?family=Inconsolata|Oswald'); */
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script:wght@500;700&display=swap');
-.title {
-  /* font-family: 'Inconsolata', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
+
+.article h1 {
   font-family: 'Parisienne', cursive;
   /* font-family: 'Dancing Script', cursive; */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* color: red; */
+  font-size: 2.5rem;
 }
+
+.article h2 {
+  margin-top: 2rem;
+  font-family: 'Bad Script', cursive;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.article p {
+  /* font-family: 'Open Sans', sans-serif; */
+  margin: 1rem;
+  font-family: 'Bad Script', cursive;
+  text-align: center;
+  font-size: 1.3rem;
+}
+/* .article {
+  background-image: '../assets/imgs/home_card/card.png';
+  
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+} */
 
 /* .time {
   font-size: 12px;
@@ -143,7 +189,6 @@ const currentDate = ref(new Date())
   max-height: 100%;
   display: block;
 }
-
 </style>
 
 
