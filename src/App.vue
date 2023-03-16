@@ -7,46 +7,48 @@ import HelloWorld from './components/HelloWorld.vue'
   <el-container>
     <el-header>
       <!-- <nav> -->
-      <el-menu mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      <el-menu mode="horizontal" 
+          :default-active="activeIndex"
+          active-text-color="#ee827c">
 
         <!-- <img></img> -->
-        <RouterLink to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
+        <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
         </RouterLink>
         <el-menu-item index="1">
-          <RouterLink to="/home">Home</RouterLink>
+          <RouterLink class="router_link" to="/home">Home</RouterLink>
         </el-menu-item>
         <el-menu-item index="2">
-          <RouterLink to="/about">Gallery</RouterLink>
+          <RouterLink class="router_link" to="/about">Gallery</RouterLink>
         </el-menu-item>
         <el-menu-item index="3">
-          <RouterLink to="/about">Timelines</RouterLink>
+          <RouterLink class="router_link" to="/about">Timelines</RouterLink>
         </el-menu-item>
         <el-menu-item index="4">
-          <RouterLink to="/about">100 Things & Wish List</RouterLink>
+          <RouterLink class="router_link" to="/about">100 Things & Wish List</RouterLink>
         </el-menu-item>
         <el-menu-item index="11">
-          <RouterLink to="/tracker">Tracker</RouterLink>
+          <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
         </el-menu-item>
         <el-menu-item index="5">
-          <RouterLink to="/about">Whisper</RouterLink>
+          <RouterLink class="router_link" to="/about">Whisper</RouterLink>
         </el-menu-item>
         <el-menu-item index="6">
-          <RouterLink to="/what_to_eat">What To Eat</RouterLink>
+          <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
         </el-menu-item>
         <el-menu-item index="6">
-          <RouterLink to="/about">Records</RouterLink>
+          <RouterLink class="router_link" to="/about">Records</RouterLink>
         </el-menu-item>
 
         <el-sub-menu index="7">
           <template #title>Tools</template>
           <el-menu-item index="7-1">
-            <RouterLink to="/what_to_eat">What To Eat</RouterLink>
+            <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
           </el-menu-item>
           <el-menu-item index="7-2">
-            <RouterLink to="/tracker">Tracker</RouterLink>
+            <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
           </el-menu-item>
           <el-menu-item index="7-3">
-          <RouterLink to="/web_labeler">Web Labeler</RouterLink>
+          <RouterLink class="router_link" to="/web_labeler">Web Labeler</RouterLink>
         </el-menu-item>
       </el-sub-menu>
 
@@ -124,8 +126,8 @@ import HelloWorld from './components/HelloWorld.vue'
   }
 
   .el-menu a.router-link-exact-active:hover {
-    /* background-color: transparent; */
-    background-color: red;
+    background-color: transparent; 
+    /* background-color: red; */
   }
 
   .el-menu a {
@@ -139,5 +141,18 @@ import HelloWorld from './components/HelloWorld.vue'
   .el-menu a:first-of-type {
     border: 0;
   }
+
+  .router_link:hover {
+    background-color: transparent; 
+    /* background-color: red;  */
+    /* padding: 5px 20px; */
+  }
+
+.el-menu-item:hover{  
+  /* outline: 0 !important;   */
+  color: #f0908d !important; 
+  background-color: transparent !important; 
+   
+} 
 
 }</style>
