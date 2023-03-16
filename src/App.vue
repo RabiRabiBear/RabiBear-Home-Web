@@ -7,7 +7,7 @@ import HelloWorld from './components/HelloWorld.vue'
   <el-container>
     <el-header>
       <!-- <nav> -->
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 
         <!-- <img></img> -->
         <RouterLink to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
@@ -120,20 +120,18 @@ import HelloWorld from './components/HelloWorld.vue'
   }
 
   .el-menu a.router-link-exact-active {
-    /* color: var(--color-text); */
-    color: red;
+    font-weight: bold;
   }
 
   .el-menu a.router-link-exact-active:hover {
     /* background-color: transparent; */
-    font-weight: bold;
-    /* background-color: red; */
+    background-color: red;
   }
 
   .el-menu a {
     display: inline-block;
     padding: 0 1rem;
-    /* border-left: 1px solid var(--color-border); */
+    border-left: 1px solid var(--color-border);
     /* border-left-color: red; */
     /* #fefefe; */
   }
