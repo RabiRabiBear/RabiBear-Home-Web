@@ -8,12 +8,14 @@ import HelloWorld from './components/HelloWorld.vue'
     <el-header>
       <!-- <nav> -->
       <el-menu mode="horizontal" 
-          :default-active="activeIndex"
           active-text-color="#ee827c">
 
         <!-- <img></img> -->
-        <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
+        <el-menu-item index="0" class="logo_router">
+          <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
         </RouterLink>
+        </el-menu-item>
+        
         <el-menu-item index="1">
           <RouterLink class="router_link" to="/home">Home</RouterLink>
         </el-menu-item>
@@ -155,4 +157,7 @@ import HelloWorld from './components/HelloWorld.vue'
    
 } 
 
+.el-menu--horizontal>.logo_router.is-active {
+  border-bottom: 1px solid #FFFFFB;
+}
 }</style>
