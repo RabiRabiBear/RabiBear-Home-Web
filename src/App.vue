@@ -49,9 +49,9 @@ import HelloWorld from './components/HelloWorld.vue'
           <el-menu-item index="7-2">
             <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
           </el-menu-item>
-          <el-menu-item index="7-3">
+          <!-- <el-menu-item index="7-3">
           <RouterLink class="router_link" to="/web_labeler">Web Labeler</RouterLink>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-sub-menu>
 
       <!-- <el-sub-menu index="7">
@@ -82,7 +82,8 @@ import HelloWorld from './components/HelloWorld.vue'
     </el-main>
 
 
-    <el-footer>
+    <!-- <el-footer style="font-family: 'Bad Script', cursive;"> -->
+      <el-footer>
       <el-divider>
         ˗ˋˏ꒰ঌ ♡ ໒꒱ྀིˎˊ˗
       </el-divider>
@@ -101,6 +102,7 @@ import HelloWorld from './components/HelloWorld.vue'
   .el-menu {
     background-color: #FFFFFB;
     /* text-align: left; */
+    /* font-family: 'Bad Script', cursive; */
     font-size: 1rem;
     margin-top: 1rem;
     width: 100%;

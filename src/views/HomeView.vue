@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-03-16
+ * @LastEditTime: 2023-03-17
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -10,16 +10,16 @@
 
 <template>
   <!-- <div class="title">
-    <img> 
+        <img> 
     
-  </div> -->
+      </div> -->
   <div class="article">
     <div class="border" style="display: flex; justify-content: space-between;">
       <img style="max-width: 10%;" src="../assets/imgs/home_card/border1.png" />
       <img style="max-width: 30%; object-fit: contain;" src="../assets/imgs/home_card/rose_divider1.png" />
       <img style="max-width: 10%; transform: scaleX(-1);" src="../assets/imgs/home_card/border1.png" />
     </div>
-    
+
     <h1>Rabbit & Bear</h1>
     <h2> Welcome to our story</h2>
     <p> Love alters not with his brief hours and weeks. <br>
@@ -43,38 +43,52 @@
     <!-- span: means that each column will take up 8/24 or one-third of the total width -->
     <el-row :gutter="0">
       <el-col :span="6">
-        <el-card shadow="hover"> Hover </el-card>
+
+        <el-card shadow="hover" class="card_link">
+          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_calender.png" />
+          <span style="margin-top: 10em;">Gallery</span>
+        </el-card>
+
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+          <img class="card_img" src="../assets/imgs/home_card/card1.JPG" />
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="hover"> Hover </el-card>
+        <el-card shadow="hover" class="card_link">
+          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_letter.png" />
+          <span style="margin-top: 10em;">Whisper</span>
+        </el-card>
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+          <img class="card_img" src="../assets/imgs/home_card/card2.JPG" />
         </el-card>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card.png" />
+          <img class="card_img" src="../assets/imgs/home_card/card3.JPG" />
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="hover"> Hover </el-card>
+        <el-card shadow="hover" class="card_link">
+          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_lock.png" />
+          <span style="margin-top: 10em;">Secret World</span>
+        </el-card>
       </el-col>
     <el-col :span="6">
       <el-card shadow="hover" :body-style="{ padding: '0px' }">
-        <img class="card_img" src="../assets/imgs/home_card/card.png" />
+        <img class="card_img" src="../assets/imgs/home_card/card4.JPG" />
       </el-card>
     </el-col>
     <el-col :span="6">
-      <el-card shadow="hover"> Hover </el-card>
+      <el-card shadow="hover" class="card_link">
+          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_diamond.png" />
+          <span style="margin-top: 10em;">Wish List</span>
+        </el-card>
     </el-col>
   </el-row>
   <!-- <el-row>
@@ -94,16 +108,16 @@
             <div class="bottom">
               <time class="time">{{ currentDate }}</time>
               <el-button text class="button">Operating</el-button>
-                </div>
-              </div>
-            </el-card>
+                    </div>
+                  </div>
+                </el-card>
         
-          </el-col>
+              </el-col>
       
-        </el-row>
-        <el-card class="box-card">
-              <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
-            </el-card> -->
+            </el-row>
+            <el-card class="box-card">
+                  <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                </el-card> -->
   </main>
 </template>
 
@@ -141,6 +155,7 @@ const currentDate = ref(new Date())
   text-align: center;
   font-size: 1.3rem;
 }
+
 /* .article {
   background-image: '../assets/imgs/home_card/card.png';
   
@@ -167,8 +182,9 @@ const currentDate = ref(new Date())
   min-height: auto;
 } */
 .card_view {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  margin-top: 5rem;
   /* background-color: aquamarine; */
 }
 
@@ -188,6 +204,16 @@ const currentDate = ref(new Date())
   max-width: 100%;
   max-height: 100%;
   display: block;
+}
+
+.card_link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* font-family: 'Dancing Script', cursive; */
+  font-family: 'Bad Script', cursive;
+  font-size: 17px;
 }
 </style>
 
