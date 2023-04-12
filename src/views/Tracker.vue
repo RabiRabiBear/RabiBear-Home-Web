@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-03-17
+ * @LastEditTime: 2023-04-12
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -75,41 +75,66 @@ function addNewItem() {
 </script> -->
 
 
-<!--
- * @Author: Alchemist
- * @Date: 2023-03-17
- * @LastEditTime: 2023-03-17
- * @FilePath: /RabiBear-Home-Web/src/views/TodoApp.vue
- * @Description: 
- * 
- * Copyright (c) 2023, All Rights Reserved. 
--->
-<template>
-  <div class="todo-list">
-    <h1>{{ title }}</h1>
+<!-- ---------------------------------------- -->
 
-    <div style="display: flex; margin: 1rem auto;">
-      <el-input v-model="newTodo" placeholder="Enter a new todo" @keyup.enter="addTodo" size="small" maxlength="20">
-      </el-input>
-      <el-button type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
-    </div>
 
-    <el-table :data="todos" stripe>
-      <el-table-column prop="text" label="Todo">
-        <template #default="{ row }">
-          <div :style="row.done ? 'text-decoration: line-through;' : ''">{{ row.text }}</div>
-        </template>
-      </el-table-column>
-      <el-table-column label="Actions">
-        <template #default="{ row }">
-          <el-button v-if="!row.done" type="success" @click="toggleDone(row)">Done</el-button>
-          <el-button v-else type="warning" @click="toggleDone(row)">Redo</el-button>
-          <el-button type="danger" @click="removeTodo(row)">Delete</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+<!-- <template>
+  <el-row :gutter="2" justify="space-between" style="margin: 2em;">
+    <el-col :span="11">
+      <div class="todo-list">
+        <h1>{{ title }}</h1>
 
-  </div>
+        <div style="display: flex; margin: 1rem auto;">
+          <el-input v-model="newTodo" placeholder="Enter a new todo" @keyup.enter="addTodo" size="small" maxlength="20">
+          </el-input>
+          <el-button type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
+        </div>
+
+        <el-table :data="todos" stripe>
+          <el-table-column prop="text" label="Todo">
+            <template #default="{ row }">
+              <div :style="row.done ? 'text-decoration: line-through;' : ''">{{ row.text }}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="Actions">
+            <template #default="{ row }">
+              <el-button v-if="!row.done" type="success" @click="toggleDone(row)">Done</el-button>
+              <el-button v-else type="warning" @click="toggleDone(row)">Redo</el-button>
+              <el-button type="danger" @click="removeTodo(row)">Delete</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+      </div>
+    </el-col>
+    <el-col :span="11">
+      <div class="todo-list">
+        <h1>{{ title }}</h1>
+
+        <div style="display: flex; margin: 1rem auto;">
+          <el-input v-model="newTodo" placeholder="Enter a new todo" @keyup.enter="addTodo" size="small" maxlength="20">
+          </el-input>
+          <el-button type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
+        </div>
+
+        <el-table :data="todos" stripe>
+          <el-table-column prop="text" label="Todo">
+            <template #default="{ row }">
+              <div :style="row.done ? 'text-decoration: line-through;' : ''">{{ row.text }}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="Actions">
+            <template #default="{ row }">
+              <el-button v-if="!row.done" type="success" @click="toggleDone(row)">Done</el-button>
+              <el-button v-else type="warning" @click="toggleDone(row)">Redo</el-button>
+              <el-button type="danger" @click="removeTodo(row)">Delete</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -129,13 +154,13 @@ export default {
   },
   methods: {
     addTodo() {
-      
+
       // const newId = this.todos.length > 0 ? this.todos[this.todos.length - 1].id + 1 : 1
       const maxId = Math.max(...this.todos.map(todo => todo.id));
-      this.todos.push({ id: maxId+1, text: this.newTodo, done: false })
+      this.todos.push({ id: maxId + 1, text: this.newTodo, done: false })
       this.newTodo = ''
       this.sortTodos()
-      console.log(this.todos[this.todos.length - 1].id, maxId+1)
+      console.log(this.todos[this.todos.length - 1].id, maxId + 1)
     },
     removeTodo(todo) {
       this.todos = this.todos.filter(t => t.id !== todo.id)
@@ -151,25 +176,64 @@ export default {
     //   this.todos.unshift(this.todos.splice(this.todos.indexOf(todo), 1)[0])
     // },
     toggleDone(todo) {
-    todo.done = !todo.done
-    this.sortTodos()
-    console.log(todo.id)
-  },
+      todo.done = !todo.done
+      this.sortTodos()
+      console.log(todo.id)
+    },
     sortTodos() {
-    this.todos.sort((a, b) => {
-      if (a.done && !b.done) {
-        return 1
-      } else if (!a.done && b.done) {
-        return -1
-      } else {
-        return a.id - b.id
-      }
-    })
-  }
+      this.todos.sort((a, b) => {
+        if (a.done && !b.done) {
+          return 1
+        } else if (!a.done && b.done) {
+          return -1
+        } else {
+          return a.id - b.id
+        }
+      })
+    }
   },
   setup() {
     const title = 'Daily Todo List'
     return { title }
   }
 }
+</script> -->
+
+
+<template>
+  <div class="todo_list">
+    <el-row :gutter="2" justify="space-between" style="margin: 2em;">
+      <el-col :span="11">
+        <h2>Today's Todo</h2>
+        <todo-list :todos="list1" />
+      </el-col>
+      <el-col :span="11">
+        <h2>Daily Todo</h2>
+        <todo-list :todos="list2" />
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import TodoList from "./TodoList.vue";
+
+export default {
+  components: {
+    TodoList,
+  },
+  data() {
+    return {
+      list1: [{ text: "Todo 1", done: false },
+      { text: "Todo 2", done: false },
+      { text: "Todo 3", done: false },],
+      list2: [{ text: "Task 1", done: false },
+      { text: "Task 2", done: false },
+      { text: "Task 3", done: false },],
+    };
+  },
+};
 </script>
+
+
+
