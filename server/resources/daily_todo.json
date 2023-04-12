@@ -1,0 +1,7 @@
+{
+    "2023-4-12": [
+        { "id": 1, "text": "Playing Guitar", "done": false },
+        { "id": 2, "text": "Leetcode", "done": false },
+        { "id": 3, "text": "Riding bicycle", "done": false }
+    ]
+}

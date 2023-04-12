@@ -27,6 +27,12 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+### Install other packages needed
+```
+npm install axios
+npm install --save-dev @vitejs/plugin-vue
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh

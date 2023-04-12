@@ -204,12 +204,10 @@ export default {
   <div class="todo_list">
     <el-row :gutter="2" justify="space-between" style="margin: 2em;">
       <el-col :span="11">
-        <h2>Today's Todo</h2>
-        <todo-list :todos="list1" />
+        <todo-list :todos="today" :title="'Today\'s Todo'" />
       </el-col>
       <el-col :span="11">
-        <h2>Daily Todo</h2>
-        <todo-list :todos="list2" />
+        <todo-list :todos="daily" :title="'Daily Todo'" />
       </el-col>
     </el-row>
   </div>
@@ -217,6 +215,7 @@ export default {
 
 <script>
 import TodoList from "./TodoList.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -224,14 +223,60 @@ export default {
   },
   data() {
     return {
-      list1: [{ text: "Todo 1", done: false },
-      { text: "Todo 2", done: false },
-      { text: "Todo 3", done: false },],
-      list2: [{ text: "Task 1", done: false },
-      { text: "Task 2", done: false },
-      { text: "Task 3", done: false },],
+      today: [],
+      daily: [],
+      // list1: [{ text: "Todo 1", done: false },
+      // { text: "Todo 2", done: false },
+      // { text: "Todo 3", done: false },],
+      // list2: [{ text: "Task 1", done: false },
+      // { text: "Task 2", done: false },
+      // { text: "Task 3", done: false },],
     };
   },
+  created() {
+    // Get the current date
+    const currentDate = new Date();
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+    
+    console.log(formattedDate);
+
+    // Fetch data for list 1 from server and assign it to list1
+    axios
+      .get("../../server/resources/today_todo.json")
+      .then((response) => {
+        this.today = response.data[formattedDate];
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+
+    // // Fetch data for list 2 from server and assign it to list2
+    axios
+      .get("../../server/resources/daily_todo.json")
+      .then((response) => {
+        // console.log(JSON.parse(response.data))
+        // const data = JSON.parse(response.data);
+        // console.log(data)
+        this.daily = response.data[formattedDate];
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    // axios.get("../../server/resources/daily_todo.json")
+    // .then(({ data }) => {
+    //   // const dailyTodo = JSON.parse(data);
+    //   // console.log(dailyTodo);
+    //   this.daily = data[formattedDate];
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+
+
+    },
 };
 </script>
 
