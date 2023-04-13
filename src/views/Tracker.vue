@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-12
+ * @LastEditTime: 2023-04-13
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -233,6 +233,32 @@ export default {
       // { text: "Task 3", done: false },],
     };
   },
+  methods: {
+    initialNewDay(formattedDate, data) {
+      const yesterday = new Date(currentDate);
+      yesterday.setDate(yesterday.getDate() - 1);
+      const formattedYesterday = `${yesterday.getFullYear()}-${yesterday.getMonth() + 1}-${yesterday.getDate()}`;
+      // this.today = [];
+      // data.filter(item => !item.done)
+      const undone = response.data[formattedYesterday].filter(item => !item.done);
+
+      // const today_data = {
+      //   date: formattedDate,
+      //   title : 'Today\'s Todo',
+      //   todo: undone,
+      // }
+      // // axios.post('http://localhost:8000/init_new_day', today_data)
+
+      // const daily_data = {
+      //   date: formattedDate,
+      //   title : 'Daily Todo',
+      //   todo: [],
+      // }
+      axios.post('http://localhost:8000/init_new_day', {date: formattedDate, today_todo: undone})
+      
+    },
+    // initialTodayTODO(formattedDate, jsonfile) {}
+  },
   created() {
     // Get the current date
     const currentDate = new Date();
@@ -240,11 +266,37 @@ export default {
     const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
     
     console.log(formattedDate);
+    today_filename = "../../server/resources/today_todo.json";
+    daily_filename = "../../server/resources/daily_todo.json";
+
+    // First get the data from the server, and check if there is data for today
+    axios
+      .get(today_filename)
+      .then((response) => {
+        const keys = Object.keys(response.data); // get the keys of the object
+        if (not keys.includes(formattedDate)) {
+          this.initialNewDay(formattedDate, response.data);
+          // this.today = response.data[formattedDate];
+          // this.initialNewDay(formattedDate, response.data);
+          // this.initialTodayTODO(formattedDate, today_filename);
+          // this.initialDailyTODO(formattedDate, daily_filename);
+        }
+        // this.daily = response.data["daily"];
+      });
 
     // Fetch data for list 1 from server and assign it to list1
     axios
-      .get("../../server/resources/today_todo.json")
+      .get(today_filename)
       .then((response) => {
+        // console.log(response.data);
+        // const keys = Object.keys(response.data); // get the keys of the object
+        // if (not keys.includes(formattedDate)) {
+        //   // this.today = response.data[formattedDate];
+        //   this.initialTodayTODO(formattedDate, "../../server/resources/today_todo.json");
+        // }
+        // else {
+          
+        // }
         this.today = response.data[formattedDate];
       })
       .catch((error) => {
@@ -254,7 +306,7 @@ export default {
 
     // // Fetch data for list 2 from server and assign it to list2
     axios
-      .get("../../server/resources/daily_todo.json")
+      .get(daily_filename)
       .then((response) => {
         // console.log(JSON.parse(response.data))
         // const data = JSON.parse(response.data);

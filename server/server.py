@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-12
+LastEditTime: 2023-04-13
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -18,6 +18,24 @@ CORS(app)
 @app.route('/')
 def index():
     return 'Hello, World!'
+
+@app.route('/init_new_day', methods=['POST'])
+def init_new_day():
+    data = request.get_json()
+    # print(data)
+    with open("./resources/daily_todo.json","r") as f:
+        data_dict = json.load(f)
+    data_dict[data['date']] = data_dict['daily']
+    with open("./resources/daily_todo.json","w") as f:
+        json.dump(data_dict, f, indent=4)
+
+    with open("./resources/today_todo.json","r") as f:
+        data_dict = json.load(f)
+    data_dict[data['date']] = data['today_todo']
+    with open("./resources/today_todo.json","w") as f:
+        json.dump(data_dict, f, indent=4)
+        
+    return jsonify(success=True)
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
@@ -56,7 +74,7 @@ def submit_form():
 
     # import pdb; pdb.set_trace()
     with open(file_name,"w") as f:
-        json.dump(data_dict, f)
+        json.dump(data_dict, f, indent=4)
         # f.write(str(data))
         # f.write("\n")
         return jsonify(success=True)
