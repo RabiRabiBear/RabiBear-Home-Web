@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-13
+ * @LastEditTime: 2023-04-14
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -234,13 +234,19 @@ export default {
     };
   },
   methods: {
-    initialNewDay(formattedDate, data) {
-      const yesterday = new Date(currentDate);
-      yesterday.setDate(yesterday.getDate() - 1);
-      const formattedYesterday = `${yesterday.getFullYear()}-${yesterday.getMonth() + 1}-${yesterday.getDate()}`;
+    initialNewDay(currentDate, formattedDate, data, keys) {
+      // const yesterday = new Date(currentDate);
+      // yesterday.setDate(yesterday.getDate() - 1);
+      // const formattedYesterday = `${yesterday.getFullYear()}-${yesterday.getMonth() + 1}-${yesterday.getDate()}`;
       // this.today = [];
       // data.filter(item => !item.done)
-      const undone = response.data[formattedYesterday].filter(item => !item.done);
+      const lastKey = keys[keys.length - 1];
+      const undone = data[lastKey].filter(item => !item.done);
+
+      // change the id of the undone todos to 1, 2, 3, ...
+      const sortedUndone = undone.map((todo, index) => {
+        return { ...todo, id: index + 1 }
+      });
 
       // const today_data = {
       //   date: formattedDate,
@@ -254,8 +260,8 @@ export default {
       //   title : 'Daily Todo',
       //   todo: [],
       // }
-      axios.post('http://localhost:8000/init_new_day', {date: formattedDate, today_todo: undone})
-      
+      axios.post('http://localhost:8000/init_new_day', { date: formattedDate, today_todo: sortedUndone })
+
     },
     // initialTodayTODO(formattedDate, jsonfile) {}
   },
@@ -264,18 +270,18 @@ export default {
     const currentDate = new Date();
     // Format the date as YYYY-MM-DD
     const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-    
+
     console.log(formattedDate);
-    today_filename = "../../server/resources/today_todo.json";
-    daily_filename = "../../server/resources/daily_todo.json";
+    const today_filename = "../../server/resources/today_todo.json";
+    const daily_filename = "../../server/resources/daily_todo.json";
 
     // First get the data from the server, and check if there is data for today
     axios
       .get(today_filename)
       .then((response) => {
         const keys = Object.keys(response.data); // get the keys of the object
-        if (not keys.includes(formattedDate)) {
-          this.initialNewDay(formattedDate, response.data);
+        if (!keys.includes(formattedDate)) {
+          this.initialNewDay(currentDate, formattedDate, response.data, keys);
           // this.today = response.data[formattedDate];
           // this.initialNewDay(formattedDate, response.data);
           // this.initialTodayTODO(formattedDate, today_filename);
@@ -295,7 +301,7 @@ export default {
         //   this.initialTodayTODO(formattedDate, "../../server/resources/today_todo.json");
         // }
         // else {
-          
+
         // }
         this.today = response.data[formattedDate];
       })
@@ -328,7 +334,7 @@ export default {
     // });
 
 
-    },
+  },
 };
 </script>
 

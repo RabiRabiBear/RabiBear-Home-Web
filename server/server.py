@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-13
+LastEditTime: 2023-04-14
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -23,17 +23,18 @@ def index():
 def init_new_day():
     data = request.get_json()
     # print(data)
+    # import pdb; pdb.set_trace()
     with open("./resources/daily_todo.json","r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data_dict['daily']
     with open("./resources/daily_todo.json","w") as f:
-        json.dump(data_dict, f, indent=4)
+        json.dump(data_dict, f, indent=4, ensure_ascii=False)
 
     with open("./resources/today_todo.json","r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data['today_todo']
     with open("./resources/today_todo.json","w") as f:
-        json.dump(data_dict, f, indent=4)
+        json.dump(data_dict, f, indent=4, ensure_ascii=False)
         
     return jsonify(success=True)
 
@@ -74,7 +75,7 @@ def submit_form():
 
     # import pdb; pdb.set_trace()
     with open(file_name,"w") as f:
-        json.dump(data_dict, f, indent=4)
+        json.dump(data_dict, f, indent=4, ensure_ascii=False)
         # f.write(str(data))
         # f.write("\n")
         return jsonify(success=True)
