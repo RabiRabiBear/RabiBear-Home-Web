@@ -33,6 +33,10 @@
       </el-row>
     </div>
 
+    <el-row justify="space-between" style="margin: 2rem;">
+      <SavingPot />
+      </el-row>
+    
     
   </div>
 </template>
@@ -40,12 +44,14 @@
 <script>
 import TodoList from "./TodoList.vue";
 // import DailyTodo from "./DailyTodo.vue";
+import SavingPot from './SavingPot.vue';
 import axios from "axios";
 
 
 export default {
   components: {
     TodoList,
+    SavingPot,
   },
   data() {
     return {
@@ -104,7 +110,7 @@ export default {
       });
 
       delete combinedData['daily'];
-      console.log('combined data', combinedData)
+      // console.log('combined data', combinedData)
 
       // count the number of done todos for each date
       const result = [];
@@ -121,7 +127,7 @@ export default {
       }
 
       this.Calenderdata = result;
-      console.log('calendaer data', this.Calenderdata);
+      // console.log('calendaer data', this.Calenderdata);
     },
     levelMapper(count) {
       if (count == 0) {
