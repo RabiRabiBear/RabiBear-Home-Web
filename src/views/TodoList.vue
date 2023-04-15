@@ -11,13 +11,19 @@
   <div class="todo-list">
     <h1>{{ title }}</h1>
 
-    <div style="display: flex; margin: 1rem auto;">
-      <el-input v-model="newTodo" placeholder="Enter a new todo" @keyup.enter="addTodo" size="small" maxlength="20">
+    <div style="display: flex; margin: 1rem auto;" v-if="editable">
+      <el-input style="font-family: 'Parisienne', cursive;" v-model="newTodo" placeholder="Enter a new todo" @keyup.enter="addTodo" size="small" maxlength="20">
       </el-input>
-      <el-button type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
+      <el-button plain type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
+    </div>
+    <div style="display: flex; margin: 0.7rem auto; justify-content: center;" v-if="!editable">
+      <!-- &nbsp; -->
+      <img style="float: bottom; width: 70%;" src="../assets/imgs/split_line.png" />
+      <!-- <img class="card_img" style="width: 100%;" src="../assets/imgs/split_line.png" /> -->
     </div>
 
-    <el-table :data="todos" stripe>
+    <!-- <el-table :data="todos" stripe :header-cell-style="{'background':'#FFFFFB', 'font-weight': bold;}" > -->
+      <el-table :data="todos" stripe :header-cell-style="{ background: '#FFFFFB', 'font-weight': 'bold', 'font-size': '1.3em' }">
       <el-table-column prop="text" label="Todo">
         <template #default="{ row }">
           <div :style="row.done ? 'text-decoration: line-through;' : ''">{{ row.text }}</div>
@@ -25,13 +31,14 @@
       </el-table-column>
       <el-table-column label="Actions">
         <template #default="{ row }">
-          <el-button v-if="!row.done" type="success" @click="toggleDone(row)">Done</el-button>
-          <el-button v-else type="warning" @click="toggleDone(row)">Redo</el-button>
-          <el-button type="danger" @click="removeTodo(row)">Delete</el-button>
+          <el-button plain v-if="!row.done" type="success" @click="toggleDone(row)">Done</el-button>
+          <el-button plain v-else type="warning" @click="toggleDone(row)">Redo</el-button>
+          <el-button plain v-if="editable" type="danger" @click="removeTodo(row)">Delete</el-button>
         </template>
       </el-table-column>
     </el-table>
 
+    
   </div>
 </template>
 
@@ -48,6 +55,10 @@ export default {
     },
     title: {
       type: String,
+      required: true,
+    },
+    editable: {
+      type: Boolean,
       required: true,
     },
   },
@@ -124,3 +135,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
+
+button {
+  font-family: 'Parisienne', cursive;
+  /* font-family: 'Dancing Script', cursive; */
+  text-align: center;
+}
+
+</style>

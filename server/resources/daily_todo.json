@@ -52,12 +52,12 @@
         {
             "id": 2,
             "text": "Leetcode",
-            "done": false
+            "done": true
         },
         {
             "id": 3,
             "text": "spinning bike",
-            "done": false
+            "done": true
         },
         {
             "id": 3,

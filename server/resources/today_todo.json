@@ -57,7 +57,7 @@
         {
             "id": 2,
             "text": "美化界面",
-            "done": false
+            "done": true
         },
         {
             "id": 3,
@@ -67,7 +67,7 @@
         {
             "id": 4,
             "text": "买机票",
-            "done": false
+            "done": true
         },
         {
             "id": 5,

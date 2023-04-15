@@ -8,102 +8,44 @@
  * Copyright (c) 2023, All Rights Reserved. 
 -->
 
-<!-- <template>
-  <ActivityCalendar
-    :data="data"
-    :width="40"
-    :height="7"
-    :header="header"
-    :showWeekDayFlag="false"
-    :cellLength="20"
-    :cellInterval="10"
-    :cellBorderRadius="4" 
-    :fontSize="12"
-    :showLevelFlag="true"
-    :levelFlagText="levels"
-    :levelMapper="levelMapper"
-  />
-
- <div>
-    Daily TODO
-    <el-checkbox-group v-model="checkList">
-      <el-checkbox label="Option A" />
-      <el-checkbox label="Option B" />
-      <el-checkbox label="Option C" />
-      <el-button round @click="addNewItem">+</el-button>
-      <el-input v-model="input" v-if="show_input" placeholder="Add new item" />
-  </el-checkbox-group>
-  </div> 
-  
-
-</template> -->
-
-
-
-<!-- <script lang="ts" setup>
-// import TodoApp from './TodoApp.vue'
-
-const header = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-const levels = ["less", "more"]
-const data = ref([{ date: "2022-09-22", count: 5 }, { date: "2022-09-21", count: 50 }])
-
-function levelMapper(count) {
-  if (count == 0) {
-    return 0;
-  } else if (count <= 1) {
-    return 1;
-  } else if (count <= 3) {
-    return 2;
-  } else if (count <= 6) {
-    return 3;
-  } else if (count <= 9) {
-    return 4;
-  } else {
-    return 5;
-  }
-}
-
-const checkList = ref([])
-var show_input = false
-const input = ref('')
-
-function addNewItem() {
-  show_input = !show_input
-}
-
-
-</script> -->
-
-
 
 <template>
-  <ActivityCalendar :data="Calenderdata" :width="35" :height="7" :header="header" :showWeekDayFlag="true" :cellLength="17"
-    :cellInterval="10" :cellBorderRadius="4" :fontSize="8" :showLevelFlag="true" :levelFlagText="levels"
-    :levelMapper="levelMapper" :backgroundColor="'#FFFFFB'" :colors="colors"/>
+  <div class="tracker">
+    
 
 
-  <div class="todo_list">
-    <el-row :gutter="2" justify="space-between" style="margin: 2em;">
-      <el-col :span="11">
-        <todo-list :todos="today" :title="'Today\'s Todo'" />
-      </el-col>
-      <el-col :span="11">
-        <todo-list :todos="daily" :title="'Daily Todo'" />
-      </el-col>
-    </el-row>
+    <div class="todo_list">
+      <el-row justify="space-between" style="margin: 2rem;">
+        <ActivityCalendar :data="Calenderdata" :width="35" :height="7" :header="header" :showWeekDayFlag="true"
+      :cellLength="17" :cellInterval="10" :cellBorderRadius="4" :fontSize="8" :showLevelFlag="true"
+      :levelFlagText="levels" :levelMapper="levelMapper" :backgroundColor="'#FFFFFB'" :colors="colors" />
+      </el-row>
+      <el-row :gutter="2" justify="space-between" style="margin: 1rem;">
+        <el-col :span="1"></el-col>
+        <el-col :span="10">
+          <todo-list :todos="today" :title="'Today\'s Todo'" :editable="true"/>
+        </el-col>
+        <el-col :span="10">
+          <!-- <img style="float: left; width: 15%;" src="../assets/imgs/sakura.png" /> -->
+          <todo-list :todos="daily" :title="'Daily Todo'" :editable="false"/>
+        </el-col>
+        <el-col :span="1"></el-col>
+      </el-row>
+    </div>
+
+    
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList.vue";
-import DailyTodo from "./DailyTodo.vue";
+// import DailyTodo from "./DailyTodo.vue";
 import axios from "axios";
 
 
 export default {
   components: {
     TodoList,
-    DailyTodo
   },
   data() {
     return {
@@ -112,7 +54,7 @@ export default {
       header: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       levels: ["less", "more"],
       Calenderdata: [],
-      colors: ["#F5F5F5","#ECF5FF","#C4E1FF","#97CBFF","#66B3FF","#46A3FF",],
+      colors: ["#F5F5F5", "#ECF5FF", "#C4E1FF", "#97CBFF", "#66B3FF", "#46A3FF",],
       // WeekDayFlagText: ["abc", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       // data: [{ date: "2022-09-22", count: 5 }, { date: "2022-09-21", count: 50 }],
       // list1: [{ text: "Todo 1", done: false },
@@ -197,6 +139,7 @@ export default {
       }
     }
   },
+  // TODO: when change the page from header ruter, the data will not be updated for calender!!
   created() {
     // // Get the current date
     // const currentDate = new Date();
@@ -260,4 +203,14 @@ export default {
 </script>
 
 
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
+.tracker {
+  font-family: 'Bad Script', cursive;
+  /* font-family: 'Dancing Script', cursive; */
+  text-align: center;
+  /* font-size: 2.5rem; */
+}
+
+</style>

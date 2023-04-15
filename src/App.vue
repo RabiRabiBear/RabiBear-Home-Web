@@ -5,7 +5,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <el-container>
-    <el-header>
+    <el-header style="font-family: 'Parisienne', cursive;">
       <!-- <nav> -->
       <el-menu mode="horizontal" 
           active-text-color="#ee827c">
@@ -82,15 +82,17 @@ import HelloWorld from './components/HelloWorld.vue'
     </el-main>
 
 
-    <!-- <el-footer style="font-family: 'Bad Script', cursive;"> -->
-      <el-footer>
+    <el-footer>
+      <!-- <el-footer> -->
       <el-divider>
         ˗ˋˏ꒰ঌ ♡ ໒꒱ྀིˎˊ˗
       </el-divider>
       <!-- <el-divider>
        <p style="background-color: #FFFFFB;">asss</p>
       </el-divider> -->
-      ❤ Copyright © 2023 RabiBear. All rights reserved. ❤
+      <p style="font-family: 'Parisienne', cursive;"> 
+        ❤ Copyright © 2023 RabiBear. All rights reserved. ❤
+      </p>
     </el-footer>
   </el-container>
 </template>
