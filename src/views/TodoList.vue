@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-04-12
- * @LastEditTime: 2023-04-13
+ * @LastEditTime: 2023-04-15
  * @FilePath: /RabiBear-Home-Web/src/views/TodoList.vue
  * @Description: 
  * 
@@ -64,8 +64,14 @@ export default {
   methods: {
     updateServerData(todo, opt) {
 
+      // const currentDate = new Date();
+      // const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+
       const currentDate = new Date();
-      const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+      const year = currentDate.getFullYear();
+      const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentDate.getDate().toString().padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
 
 
       const form_data_desktop = {

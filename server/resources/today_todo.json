@@ -1,5 +1,5 @@
 {
-    "2023-4-12": [
+    "2023-04-12": [
         {
             "id": 2,
             "text": "write the hit map",
@@ -26,26 +26,53 @@
             "done": false
         }
     ],
-    "2023-4-14": [
+    "2023-04-14": [
         {
             "id": 1,
-            "text": "\u5199\u5b58\u94b1\u7f50",
+            "text": "写存钱罐",
             "done": false
         },
         {
             "id": 2,
-            "text": "\u7f8e\u5316\u754c\u9762",
+            "text": "美化界面",
             "done": false
         },
         {
             "id": 3,
-            "text": "github\u70ed\u529b\u56fe",
+            "text": "github热力图",
             "done": false
         },
         {
-            "id": 4,
-            "text": "\u6539todo list\u7684bug",
+            "id": 3,
+            "text": "todo list",
             "done": true
+        }
+    ],
+    "2023-04-15": [
+        {
+            "id": 1,
+            "text": "写存钱罐",
+            "done": false
+        },
+        {
+            "id": 2,
+            "text": "美化界面",
+            "done": false
+        },
+        {
+            "id": 3,
+            "text": "github热力图",
+            "done": true
+        },
+        {
+            "id": 4,
+            "text": "买机票",
+            "done": false
+        },
+        {
+            "id": 5,
+            "text": "在vg上跑代码",
+            "done": false
         }
     ]
 }

@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-14
+LastEditTime: 2023-04-15
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -56,6 +56,7 @@ def submit_form():
     
     # modify today's todo
     if data['opt'] == 'add':
+        print(data['date'], data_dict.keys())
         assert data['date'] in data_dict.keys()
         data_dict[data['date']].append(data['todo'])
         
