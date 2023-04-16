@@ -74,5 +74,32 @@
             "text": "在vg上跑代码",
             "done": false
         }
+    ],
+    "2023-04-16": [
+        {
+            "id": 1,
+            "text": "写存钱罐",
+            "done": true
+        },
+        {
+            "id": 2,
+            "text": "在vg上跑代码",
+            "done": false
+        },
+        {
+            "id": 3,
+            "text": "读取coco数据集",
+            "done": false
+        },
+        {
+            "id": 4,
+            "text": "在hf里读vg数据集",
+            "done": false
+        },
+        {
+            "id": 5,
+            "text": "存储存钱罐到服务器的代码",
+            "done": true
+        }
     ]
 }

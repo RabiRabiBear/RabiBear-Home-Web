@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-04-15
+ * @LastEditTime: 2023-04-16
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
       <el-progress :percentage="percentage" />
 
       <p>
-        Saved Amount ¥{{ showAmount }} / Target Amount ¥{{ targetAmount }}
+        Saved Amount ¥{{ shownAmount }} / Target Amount ¥{{ targetAmount }}
       </p>
 
       <div class="stars">
@@ -32,6 +32,7 @@
 
 
 <script>
+import axios from "axios";
 
 import pot1Image from '@/assets/imgs/tracker/pot1.jpeg';
 import pot2Image from '@/assets/imgs/tracker/pot2.jpeg';
@@ -40,7 +41,7 @@ export default {
   data() {
     return {
       savedAmount: 0,
-      showAmount: 0,
+      shownAmount: 0,
       targetAmount: 100,
       potImages: {
         0: pot1Image,
@@ -52,7 +53,7 @@ export default {
   },
   computed: {
     percentage() {
-      return Math.min(100, Math.floor((this.showAmount / this.targetAmount) * 100));
+      return Math.min(100, Math.floor((this.shownAmount / this.targetAmount) * 100));
     },
     potImage() {
       const percentages = Object.keys(this.potImages);
@@ -74,12 +75,28 @@ export default {
     //     console.log(this.savedAmount)
     //     // this.targetAmount += stars * 50;
     //   }
-      this.showAmount = this.savedAmount % this.targetAmount;
+      this.shownAmount = this.savedAmount % this.targetAmount;
+      axios.post('http://localhost:8000/modify_saving_pot', { key: 'savedAmount', val: this.savedAmount })
     },
     withdraw(amount) {
       this.savedAmount = Math.max(0, this.savedAmount - amount);
-      this.showAmount = this.savedAmount % this.targetAmount;
+      this.shownAmount = this.savedAmount % this.targetAmount;
+      axios.post('http://localhost:8000/modify_saving_pot', { key: 'savedAmount', val: this.savedAmount })
     }
+  },
+  created() {
+    axios
+      .get("../../server/resources/saving_pot.json")
+      .then((response) => {
+        // const keys = Object.keys(response.data); // get the keys of the object
+        // if (!keys.includes(formattedDate)) {
+        //   this.initialNewDay(currentDate, formattedDate, response.data, keys);
+        // }
+        this.savedAmount = response.data.savedAmount;
+        this.shownAmount = response.data.shownAmount;
+        this.targetAmount = response.data.targetAmount;
+        console.log(this.savedAmount, this.shownAmount, this.targetAmount);
+      });
   }
 };
 </script>

@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-15
+LastEditTime: 2023-04-16
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -18,6 +18,24 @@ CORS(app)
 @app.route('/')
 def index():
     return 'Hello, World!'
+
+@app.route('/modify_saving_pot', methods=['POST'])
+def modify_saving_pot():
+    data = request.get_json()
+    # print(data)
+    with open("./resources/saving_pot.json","r") as f:
+        data_dict = json.load(f)
+    if data['key'] == 'savedAmount':
+
+        data_dict[data['key']] = data['val']
+        data_dict['shownAmount'] = data['val'] % data_dict['targetAmount']
+    else:
+        # print('this is not allowed')
+        raise ValueError("this is not allowed")
+
+    with open("./resources/saving_pot.json","w") as f:
+        json.dump(data_dict, f, indent=4, ensure_ascii=False)
+    return jsonify(success=True)
 
 @app.route('/init_new_day', methods=['POST'])
 def init_new_day():
