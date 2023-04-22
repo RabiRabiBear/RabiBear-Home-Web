@@ -12,7 +12,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
         <!-- <img></img> -->
         <el-menu-item index="0" class="logo_router">
-          <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" />
+          <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" style="display: flex; align-items: center;"/>
         </RouterLink>
         </el-menu-item>
         
@@ -20,39 +20,44 @@ import HelloWorld from './components/HelloWorld.vue'
           <RouterLink class="router_link" to="/home">Home</RouterLink>
         </el-menu-item>
         <el-menu-item index="2">
-          <RouterLink class="router_link" to="/about">Gallery</RouterLink>
+          <RouterLink class="router_link" to="/maintenance">Gallery</RouterLink>
         </el-menu-item>
         <el-menu-item index="3">
-          <RouterLink class="router_link" to="/about">Timelines</RouterLink>
+          <RouterLink class="router_link" to="/maintenance">Timelines</RouterLink>
         </el-menu-item>
         <el-menu-item index="4">
-          <RouterLink class="router_link" to="/about">100 Things & Wish List</RouterLink>
-        </el-menu-item>
-        <el-menu-item index="11">
-          <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
+          <RouterLink class="router_link" to="/maintenance">100 Things & Wish List</RouterLink>
         </el-menu-item>
         <el-menu-item index="5">
-          <RouterLink class="router_link" to="/about">Whisper</RouterLink>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <RouterLink class="router_link" to="/about">Records</RouterLink>
+          <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
         </el-menu-item>
 
-        <el-sub-menu index="7">
+        <el-menu-item index="6">
+          <!-- <template #title><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="30" height="30" /></template> -->
+          <RouterLink class="router_link" to="/maintenance"><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="25" height="25" style="margin-top: 0.8em; display: flex; align-items: center;"/></RouterLink>
+        </el-menu-item>
+
+
+        <el-menu-item index="7">
+          <RouterLink class="router_link" to="/maintenance">Whisper</RouterLink>
+        </el-menu-item>
+        <el-menu-item index="8">
+        
+          <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
+        </el-menu-item>
+        <el-menu-item index="9">
+          <RouterLink class="router_link" to="/maintenance">Records</RouterLink>
+        </el-menu-item>
+
+        <!-- <el-sub-menu index="10">
           <template #title>Tools</template>
-          <el-menu-item index="7-1">
+          <el-menu-item index="10-1">
             <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
           </el-menu-item>
-          <el-menu-item index="7-2">
+          <el-menu-item index="10-2">
             <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
           </el-menu-item>
-          <!-- <el-menu-item index="7-3">
-          <RouterLink class="router_link" to="/web_labeler">Web Labeler</RouterLink>
-        </el-menu-item> -->
-      </el-sub-menu>
+      </el-sub-menu> -->
 
       <!-- <el-sub-menu index="7">
         <template #title>Records</template>
@@ -65,11 +70,12 @@ import HelloWorld from './components/HelloWorld.vue'
 
 
 
-        <el-sub-menu index="8">
-          <template #title><img alt="logo" src="@/assets/imgs/heart_key.png" width="40" height="40" /></template>
-          <el-menu-item index="8-1">Accounting</el-menu-item>
-          <el-menu-item index="8-2">Photos</el-menu-item>
-          <el-menu-item index="8-2">Expiry Alert</el-menu-item>
+        <el-sub-menu index="11">
+          <!-- <template #title><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="30" height="30" /></template> -->
+          <!-- <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_lock.png" /> -->
+          <!-- <el-menu-item index="8-1">Accounting</el-menu-item> -->
+          <el-menu-item index="11-1">Photos</el-menu-item>
+          <el-menu-item index="11-2">Expiry Alert</el-menu-item>
           <!-- <el-menu-item index="3-3">Diary</el-menu-item> -->
         </el-sub-menu>
       </el-menu>

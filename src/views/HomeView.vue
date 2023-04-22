@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-03-17
+ * @LastEditTime: 2023-04-22
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -45,7 +45,7 @@
       <el-col :span="6">
 
         <el-card shadow="hover" class="card_link">
-          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_calender.png" />
+          <img class="card_img" style="width: 40%; margin: 0 auto;" src="../assets/imgs/home_card/icon_calender.png" />
           <span style="margin-top: 10em;">Gallery</span>
         </el-card>
 
@@ -57,7 +57,7 @@
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" class="card_link">
-          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_letter.png" />
+          <img class="card_img" style="width: 40%; margin: 0 auto;" src="../assets/imgs/home_card/icon_letter.png" />
           <span style="margin-top: 10em;">Whisper</span>
         </el-card>
       </el-col>
@@ -73,12 +73,21 @@
           <img class="card_img" src="../assets/imgs/home_card/card3.JPG" />
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <!-- <el-col :span="6">
         <el-card shadow="hover" class="card_link">
           <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_lock.png" />
           <span style="margin-top: 10em;">Secret World</span>
         </el-card>
-      </el-col>
+      </el-col> -->
+
+      <el-col :span="6">
+  <el-card shadow="hover" class="card_link" >
+    <img class="card_img" style="width: 40%; margin: 0 auto;" src="../assets/imgs/home_card/icon_lock.png" />
+    <span style="text-align: center;">Secret World</span>
+  </el-card>
+</el-col>
+
+
     <el-col :span="6">
       <el-card shadow="hover" :body-style="{ padding: '0px' }">
         <img class="card_img" src="../assets/imgs/home_card/card4.JPG" />
@@ -86,7 +95,7 @@
     </el-col>
     <el-col :span="6">
       <el-card shadow="hover" class="card_link">
-          <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_diamond.png" />
+          <img class="card_img" style="width: 40%; margin: 0 auto;" src="../assets/imgs/home_card/icon_diamond.png" />
           <span style="margin-top: 10em;">Wish List</span>
         </el-card>
     </el-col>
@@ -204,6 +213,8 @@ const currentDate = ref(new Date())
   max-width: 100%;
   max-height: 100%;
   display: block;
+  display: flex; 
+  align-items: center;
 }
 
 .card_link {
@@ -211,9 +222,9 @@ const currentDate = ref(new Date())
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* font-family: 'Dancing Script', cursive; */
   font-family: 'Bad Script', cursive;
   font-size: 17px;
+  text-align: center;
 }
 </style>
 

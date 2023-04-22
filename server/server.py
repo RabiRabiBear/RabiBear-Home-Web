@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-16
+LastEditTime: 2023-04-22
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -18,6 +18,25 @@ CORS(app)
 @app.route('/')
 def index():
     return 'Hello, World!'
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+
+    # Check the user's credentials
+    if email == 'user@example.com' and password == 'password':
+        # Return the JSON file for this user type
+        response = {'userType': 'basic', 'data': { /* Data for basic user */ }}
+        return jsonify(response)
+    # elif email == 'admin@example.com' and password == 'password':
+    #     # Return the JSON file for this user type
+    #     response = {'userType': 'admin', 'data': { /* Data for admin user */ }}
+    #     return jsonify(response)
+    else:
+        return jsonify({'error': 'Invalid credentials'}), 401
 
 @app.route('/modify_saving_pot', methods=['POST'])
 def modify_saving_pot():
