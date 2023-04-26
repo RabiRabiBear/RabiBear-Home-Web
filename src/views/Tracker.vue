@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-15
+ * @LastEditTime: 2023-04-26
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -46,6 +46,9 @@ import TodoList from "./TodoList.vue";
 // import DailyTodo from "./DailyTodo.vue";
 import SavingPot from './SavingPot.vue';
 import axios from "axios";
+
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 
 
 export default {
@@ -204,6 +207,12 @@ export default {
 
     // this.countDoneTodos(json_todos);
 
+  },
+  setup() {
+    const store = useStore()
+    const username = computed(() => store.state.username)
+    console.log(username.value)
+    return { username }
   },
 };
 </script>

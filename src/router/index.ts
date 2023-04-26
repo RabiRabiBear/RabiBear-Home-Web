@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-22
+ * @LastEditTime: 2023-04-23
  * @FilePath: /RabiBear-Home-Web/src/router/index.ts
  * @Description: 
  * 
@@ -48,6 +48,11 @@ const router = createRouter({
       path: '/maintenance',
       name: 'maintenance',
       component: () => import('../views/Maintenance.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginPage.vue')
     }
   ]
 })

@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-01-30
+ * @LastEditTime: 2023-04-26
  * @FilePath: /RabiBear-Home-Web/src/views/WhatToEat.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
     <div class="eat-box">
       <el-transfer v-model="selected" :data="data" />
       <div>
-        <el-button type="primary" round @click="select">Select</el-button>
+        <el-button style="font-family: 'Bad Script', cursive;" type="primary" round @click="select">Select</el-button>
       </div>
       <div>
         <div v-show="buttonStatus">{{ msg }}</div>
@@ -106,32 +106,16 @@
   //   },
   // }
   </script>
-
-<!--   
-  <script lang="ts" setup>
-  import { ref } from 'vue'
-  
-  interface Option {
-    key: number
-    label: string
-    disabled: boolean
-  }
-  
-  const generateData = () => {
-    const data: Option[] = []
-    for (let i = 1; i <= 15; i++) {
-      data.push({
-        key: i,
-        label: `Option ${i}`,
-        disabled: i % 4 === 0,
-      })
-    }
-    return data
-  }
-  
-  const data = ref<Option[]>(generateData())
-  const value = ref([])
-  </script> -->
-  
-
-
+<style>
+.eat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-family: 'Bad Script', cursive;
+  text-align: center;
+  font-size: 2rem;
+}
+</style>

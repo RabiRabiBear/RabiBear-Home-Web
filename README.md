@@ -31,6 +31,8 @@ npm install
 ```
 npm install axios
 npm install --save-dev @vitejs/plugin-vue
+npm install vuex
+npm install js-cookie
 ```
 
 ### Compile and Hot-Reload for Development

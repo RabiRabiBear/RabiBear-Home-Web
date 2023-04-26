@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-22
+LastEditTime: 2023-04-26
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -23,20 +23,33 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    email = data['email']
-    password = data['password']
+    print(data)
+    name = data['name']
+    psw = data['password']
+
+    with open("./resources/user_info.json","r") as f:
+        users = json.load(f)
+    if name in users.keys():
+        if users[name]['psw'] == psw:
+            # response = {'userName': name, 'json_file_path': users[name]['json_file_path']}
+            response = {'userName': name}
+            return jsonify(response)
+        else:
+            return jsonify({'error': 'Invalid credentials'}), 401
+    else:
+        return jsonify({'error': 'Invalid user name'}), 401
 
     # Check the user's credentials
-    if email == 'user@example.com' and password == 'password':
-        # Return the JSON file for this user type
-        response = {'userType': 'basic', 'data': { /* Data for basic user */ }}
-        return jsonify(response)
+    # if name == 'user@example.com' and psw == 'password':
+    #     # Return the JSON file for this user type
+    #     response = {'userType': 'basic', 'data': { /* Data for basic user */ }}
+    #     return jsonify(response)
     # elif email == 'admin@example.com' and password == 'password':
     #     # Return the JSON file for this user type
     #     response = {'userType': 'admin', 'data': { /* Data for admin user */ }}
     #     return jsonify(response)
-    else:
-        return jsonify({'error': 'Invalid credentials'}), 401
+    # else:
+    #     return jsonify({'error': 'Invalid credentials'}), 401
 
 @app.route('/modify_saving_pot', methods=['POST'])
 def modify_saving_pot():

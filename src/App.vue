@@ -34,7 +34,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
         <el-menu-item index="6">
           <!-- <template #title><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="30" height="30" /></template> -->
-          <RouterLink class="router_link" to="/maintenance"><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="25" height="25" style="margin-top: 0.8em; display: flex; align-items: center;"/></RouterLink>
+          <RouterLink class="router_link" to="/login"><img alt="logo" class="router_link" src="@/assets/imgs/home_card/icon_lock.png" width="25" height="25" style="margin-top: 0.8em; margin-bottom: 0.8em; display: flex; align-items: center;"/></RouterLink>
         </el-menu-item>
 
 
