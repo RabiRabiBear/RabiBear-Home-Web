@@ -1,11 +1,15 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
-
+  padding: 0rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
   font-weight: normal;
+  /* text-align: center; */
 }
 
 a,
@@ -25,11 +29,13 @@ a,
   body {
     display: flex;
     place-items: center;
+    background-color: #fdeff2;
+    /* background-color: aliceblue; */
   }
 
-  #app {
+  /* #app {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
-  }
+  } */
 }
