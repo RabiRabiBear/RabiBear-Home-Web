@@ -10,7 +10,6 @@ import HelloWorld from './components/HelloWorld.vue'
       <el-menu mode="horizontal" 
           active-text-color="#ee827c">
 
-        <!-- <img></img> -->
         <el-menu-item index="0" class="logo_router">
           <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" style="display: flex; align-items: center;"/>
         </RouterLink>

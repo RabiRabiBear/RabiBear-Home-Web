@@ -1,91 +1,22 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-22
- * @LastEditTime: 2023-04-26
+ * @LastEditTime: 2023-04-27
  * @FilePath: /RabiBear-Home-Web/src/views/LoginPage.vue
  * @Description: 
  * 
  * Copyright (c) 2023, All Rights Reserved. 
 -->
-<!-- <template>
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="120px">
-      <el-form-item label="Username" prop="username">
-        <el-input v-model="loginForm.username"></el-input>
-      </el-form-item>
-      <el-form-item label="Password" prop="password">
-        <el-input v-model="loginForm.password" type="password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="login">Login</el-button>
-      </el-form-item>
-    </el-form>
-  </template>
-   -->
-  <!-- <script>
-    export default {
-      data() {
-        return {
-          loginForm: {
-            username: '',
-            password: ''
-          },
-          loginRules: {
-            username: [{ required: true, message: 'Please enter your username', trigger: 'blur' }],
-            password: [{ required: true, message: 'Please enter your password', trigger: 'blur' }]
-          }
-        }
-      },
-      methods: {
-        login() {
-          this.$refs.loginForm.validate((valid) => {
-            if (valid) {
-              // Perform login action
-            } else {
-              return false;
-            }
-          });
-        }
-      }
-    }
-  </script>
-   -->
-
-   <!-- <script>
-import { reactive } from 'vue'
-import { ElMessage } from 'element-plus'
-
-export default {
-  name: 'LoginForm',
-  setup() {
-    const form = reactive({
-      email: '',
-      password: ''
-    })
-
-    const submitForm = async () => {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      })
-
-      if (response.ok) {
-        const userData = await response.json()
-        // Load the appropriate JSON file for the user and store the data in the Vuex store
-      } else {
-        ElMessage.error('Login failed')
-      }
-    }
-
-    return { form, submitForm }
-  }
-}
-</script> -->
-
-
 
 
 <template>
+  <div v-if="isLoggedIn">
+    <img :src="useravatar" alt="User Avatar" style="width: 5em" />
+    <div>{{ username }}</div>
+    <div>{{ slogan }}</div>
+    <el-button type="primary" plain @click="logout">Logout</el-button>
+  </div>
+  <div v-else>
     <el-form :model="form" label-position="top" label-width="120px" class="login-form">
       <el-form-item label="Name" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -94,52 +25,79 @@ export default {
         <el-input type="password" v-model="form.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm">Login</el-button>
+        <el-button type="primary" plain @click="submitForm">Login</el-button>
       </el-form-item>
     </el-form>
-  </template>
+  </div>
+</template>
   
-  <script>
-  import { reactive } from 'vue'
-  import { ElMessage } from 'element-plus'
-  import { useStore } from 'vuex'
-  
-  export default {
-    name: 'LoginForm',
-    setup() {
-      const form = reactive({
-        name: '',
-        password: ''
+<script>
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import Cookies from 'js-cookie'
+
+export default {
+  name: 'LoginForm',
+  setup() {
+    const form = reactive({
+      name: '',
+      password: ''
+    })
+    const isLoggedIn = ref(false)
+    const username = ref('')
+    const slogan = ref('')
+    const useravatar = ref('')
+
+    const submitForm = async () => {
+      const response = await fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
       })
 
-      const store = useStore()
-  
-      const submitForm = async () => {
-        const response = await fetch('http://localhost:8000/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form)
-        })
-  
-        if (response.ok) {
-          const userData = await response.json()
-          store.commit('setUsername', userData.username)
-          // Load the appropriate JSON file for the user and store the data in the Vuex store
-          console.log(userData)
-        } else {
-          ElMessage.error('Login failed. Please try again.')
-        }
+      if (response.ok) {
+        const userData = await response.json()
+        console.log(userData)
+        Cookies.set('username', userData.userName, { expires: 14 })
+        Cookies.set('slogan', userData.slogan, { expires: 14 })
+        Cookies.set('useravatar', userData.useravatar, { expires: 14 })
+        isLoggedIn.value = true
+        username.value = userData.userName
+        slogan.value = userData.slogan
+        useravatar.value = userData.avatar
+      } else {
+        ElMessage.error('Login failed. Please try again.')
       }
-  
-      return { form, submitForm }
     }
+
+    const logout = () => {
+      Cookies.remove('username')
+      Cookies.remove('slogan')
+      Cookies.remove('useravatar')
+      isLoggedIn.value = false
+      username.value = ''
+      slogan.value = ''
+      useravatar.value = ''
+    }
+
+    // check if user is logged in on page load
+    const usernameCookie = Cookies.get('username')
+    const sloganCookie = Cookies.get('slogan')
+    if (usernameCookie && sloganCookie) {
+      isLoggedIn.value = true
+      username.value = usernameCookie
+      slogan.value = sloganCookie
+    }
+
+    return { form, submitForm, isLoggedIn, username, slogan, useravatar, logout }
   }
-  </script>
+}
+</script>
   
-  <style scoped>
-  .login-form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  </style>
+<style scoped>
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+</style>
   

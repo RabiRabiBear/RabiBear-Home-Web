@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-04-12
- * @LastEditTime: 2023-04-15
+ * @LastEditTime: 2023-04-27
  * @FilePath: /RabiBear-Home-Web/src/views/TodoList.vue
  * @Description: 
  * 
@@ -45,6 +45,7 @@
 <script>
 import { ref } from 'vue'
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 export default {
   name: 'TodoList',
@@ -69,7 +70,8 @@ export default {
       //     { id: 2, text: 'Build an app with Vue 3', done: false },
       //     { id: 3, text: 'Explore Element Plus', done: false }
       //   ],
-      newTodo: ''
+      newTodo: '',
+      userName: ref(Cookies.get('username')),
     }
   },
   methods: {
@@ -89,7 +91,8 @@ export default {
         date: formattedDate,
         title : this.title,
         todo: todo,
-        opt: opt
+        opt: opt,
+        user_name: this.userName,
       }
       // console.log(JSON.stringify(form_data));
       axios.post('http://localhost:8000/submit', form_data_desktop)

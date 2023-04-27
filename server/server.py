@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-26
+LastEditTime: 2023-04-27
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -10,10 +10,18 @@ Copyright (c) 2023, All Rights Reserved.
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
+import os
 
 
 app = Flask(__name__)
 CORS(app)
+
+data_path = "./resources/"
+user_info_file = "user_info.json"
+saving_pot_file = "saving_pot.json"
+daily_todo_file = "daily_todo.json"
+today_todo_file = "today_todo.json"
+
 
 @app.route('/')
 def index():
@@ -23,82 +31,63 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    print(data)
     name = data['name']
     psw = data['password']
 
-    with open("./resources/user_info.json","r") as f:
+    with open(os.path.join(data_path, user_info_file),"r") as f:
         users = json.load(f)
     if name in users.keys():
         if users[name]['psw'] == psw:
-            # response = {'userName': name, 'json_file_path': users[name]['json_file_path']}
-            response = {'userName': name}
+            response = {'userName': name, 'slogan': users[name]['slogan'], 'avatar': users[name]['avatar']}
             return jsonify(response)
         else:
             return jsonify({'error': 'Invalid credentials'}), 401
     else:
         return jsonify({'error': 'Invalid user name'}), 401
 
-    # Check the user's credentials
-    # if name == 'user@example.com' and psw == 'password':
-    #     # Return the JSON file for this user type
-    #     response = {'userType': 'basic', 'data': { /* Data for basic user */ }}
-    #     return jsonify(response)
-    # elif email == 'admin@example.com' and password == 'password':
-    #     # Return the JSON file for this user type
-    #     response = {'userType': 'admin', 'data': { /* Data for admin user */ }}
-    #     return jsonify(response)
-    # else:
-    #     return jsonify({'error': 'Invalid credentials'}), 401
-
 @app.route('/modify_saving_pot', methods=['POST'])
 def modify_saving_pot():
     data = request.get_json()
-    # print(data)
-    with open("./resources/saving_pot.json","r") as f:
+
+    with open(os.path.join(data_path, data['user_name'], saving_pot_file),"r") as f:
         data_dict = json.load(f)
     if data['key'] == 'savedAmount':
 
         data_dict[data['key']] = data['val']
         data_dict['shownAmount'] = data['val'] % data_dict['targetAmount']
     else:
-        # print('this is not allowed')
         raise ValueError("this is not allowed")
 
-    with open("./resources/saving_pot.json","w") as f:
+    with open(os.path.join(data_path, data['user_name'], saving_pot_file),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
     return jsonify(success=True)
 
 @app.route('/init_new_day', methods=['POST'])
 def init_new_day():
     data = request.get_json()
-    # print(data)
-    # import pdb; pdb.set_trace()
-    with open("./resources/daily_todo.json","r") as f:
+
+    with open(os.path.join(data_path, data['user_name'], daily_todo_file),"r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data_dict['daily']
-    with open("./resources/daily_todo.json","w") as f:
+    with open(os.path.join(data_path, data['user_name'], daily_todo_file),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
 
-    with open("./resources/today_todo.json","r") as f:
+    with open(os.path.join(data_path, data['user_name'], today_todo_file),"r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data['today_todo']
-    with open("./resources/today_todo.json","w") as f:
+    with open(os.path.join(data_path, data['user_name'], today_todo_file),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
         
     return jsonify(success=True)
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
-    # print(request)
-    # print(request.get_json())
-    
     
     data = request.get_json()
     if 'Today' in data['title']:
-        file_name = "resources/today_todo.json"
+        file_name = os.path.join(data_path, data['user_name'], today_todo_file)
     else:
-        file_name = "./resources/daily_todo.json"
+        file_name = os.path.join(data_path, data['user_name'], daily_todo_file)
 
     
     with open(file_name,"r") as f:
@@ -124,11 +113,8 @@ def submit_form():
         ValueError("No such date in the data_dict")
     
 
-    # import pdb; pdb.set_trace()
     with open(file_name,"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
-        # f.write(str(data))
-        # f.write("\n")
         return jsonify(success=True)
 
 if __name__ == '__main__':

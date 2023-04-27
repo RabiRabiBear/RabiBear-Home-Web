@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-26
+ * @LastEditTime: 2023-04-27
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -47,8 +47,10 @@ import TodoList from "./TodoList.vue";
 import SavingPot from './SavingPot.vue';
 import axios from "axios";
 
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+// import { computed } from 'vue'
+// import { useStore } from 'vuex'
+import { ref } from 'vue'
+import Cookies from 'js-cookie';
 
 
 export default {
@@ -64,11 +66,7 @@ export default {
       levels: ["less", "more"],
       Calenderdata: [],
       colors: ["#F5F5F5", "#ECF5FF", "#C4E1FF", "#97CBFF", "#66B3FF", "#46A3FF",],
-      // WeekDayFlagText: ["abc", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      // data: [{ date: "2022-09-22", count: 5 }, { date: "2022-09-21", count: 50 }],
-      // list1: [{ text: "Todo 1", done: false },
-      // { text: "Todo 2", done: false },
-      // { text: "Todo 3", done: false },],
+      userName: ref(Cookies.get('username')),
     };
   },
   methods: {
@@ -81,20 +79,16 @@ export default {
         return { ...todo, id: index + 1 }
       });
 
-      axios.post('http://localhost:8000/init_new_day', { date: formattedDate, today_todo: sortedUndone })
+      axios.post('http://localhost:8000/init_new_day', {user_name: this.userName, date: formattedDate, today_todo: sortedUndone })
 
     },
     countDoneTodos(today, daily) {
 
-      // console.log(json_todos);
-      // const today = json_todos.today;
-      // const daily = json_todos.daily;
       // combine today and daily todos
       const combinedData = {};
 
 
       // create new arrays for today and daily
-      // const todayTodos = Array.from(today);
       const todayTodos = JSON.parse(JSON.stringify(today));
       const dailyTodos = JSON.parse(JSON.stringify(daily));
 
@@ -151,10 +145,6 @@ export default {
   // TODO: when change the page from header ruter, the data will not be updated for calender!!
   created() {
     // // Get the current date
-    // const currentDate = new Date();
-    // // Format the date as YYYY-MM-DD
-    // const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-
     // use the padStart() method to add a leading zero to the month/day if it's a single digit.
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -163,8 +153,9 @@ export default {
     const formattedDate = `${year}-${month}-${day}`;
 
     console.log(formattedDate);
-    const today_filename = "../../server/resources/today_todo.json";
-    const daily_filename = "../../server/resources/daily_todo.json";
+    console.log(this.userName);
+    const today_filename = "../../server/resources/"+this.userName+"/today_todo.json";
+    const daily_filename = "../../server/resources/"+this.userName+"/daily_todo.json";
 
     // First get the data from the server, and check if there is data for today
     axios
@@ -205,14 +196,6 @@ export default {
         console.error(error);
       });
 
-    // this.countDoneTodos(json_todos);
-
-  },
-  setup() {
-    const store = useStore()
-    const username = computed(() => store.state.username)
-    console.log(username.value)
-    return { username }
   },
 };
 </script>

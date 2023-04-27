@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-04-16
+ * @LastEditTime: 2023-04-27
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -9,7 +9,7 @@
 -->
 <template>
     <div class="saving-pot">
-      <img :src="potImage" alt="Pot image" />
+      <img :src="potImage" alt="Pot image" style="width: 5em;"/>
       <el-progress :percentage="percentage" />
 
       <p>
@@ -37,6 +37,9 @@ import axios from "axios";
 import pot1Image from '@/assets/imgs/tracker/pot1.jpeg';
 import pot2Image from '@/assets/imgs/tracker/pot2.jpeg';
 
+import { ref } from 'vue'
+import Cookies from 'js-cookie';
+
 export default {
   data() {
     return {
@@ -48,7 +51,8 @@ export default {
         25: pot2Image,
         50: 'image3.jpg',
         75: 'image4.jpg'
-      }
+      },
+      userName: ref(Cookies.get('username')),
     };
   },
   computed: {
@@ -76,17 +80,17 @@ export default {
     //     // this.targetAmount += stars * 50;
     //   }
       this.shownAmount = this.savedAmount % this.targetAmount;
-      axios.post('http://localhost:8000/modify_saving_pot', { key: 'savedAmount', val: this.savedAmount })
+      axios.post('http://localhost:8000/modify_saving_pot', { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
     },
     withdraw(amount) {
       this.savedAmount = Math.max(0, this.savedAmount - amount);
       this.shownAmount = this.savedAmount % this.targetAmount;
-      axios.post('http://localhost:8000/modify_saving_pot', { key: 'savedAmount', val: this.savedAmount })
+      axios.post('http://localhost:8000/modify_saving_pot', { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
     }
   },
   created() {
     axios
-      .get("../../server/resources/saving_pot.json")
+      .get("../../server/resources/"+this.userName+"/saving_pot.json")
       .then((response) => {
         // const keys = Object.keys(response.data); // get the keys of the object
         // if (!keys.includes(formattedDate)) {
