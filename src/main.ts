@@ -1,18 +1,7 @@
-<<<<<<< HEAD
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-
-import './assets/main.css'
-
-const app = createApp(App)
-
-app.use(router)
-=======
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-26
+ * @LastEditTime: 2023-04-27
  * @FilePath: /RabiBear-Home-Web/src/main.ts
  * @Description: 
  * 
@@ -39,6 +28,5 @@ app.use(router)
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(ActivityCalendar)
 app.use(store)
->>>>>>> dev
 
 app.mount('#app')
