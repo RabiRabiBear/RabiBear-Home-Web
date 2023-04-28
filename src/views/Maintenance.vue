@@ -16,7 +16,7 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
+
 .maintenance {
   display: flex;
   flex-direction: column;

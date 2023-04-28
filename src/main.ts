@@ -12,6 +12,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store.js'
 
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
@@ -20,6 +21,7 @@ import "vue-activity-calendar/style.css";
  
 
 import './assets/main.css'
+import './assets/global.css'
 
 
 const app = createApp(App)

@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-04-27
+ * @LastEditTime: 2023-04-28
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -10,15 +10,16 @@
 <template>
     <div class="saving-pot">
       <img :src="potImage" alt="Pot image" style="width: 5em;"/>
+      <div class="stars">
+      <img v-for="star in stars" style="float: left; width: 15%;" :key="star" src='../assets/imgs/tracker/star.png' alt="Star image" />
+    </div>
       <el-progress :percentage="percentage" />
 
       <p>
         Saved Amount ¥{{ shownAmount }} / Target Amount ¥{{ targetAmount }}
       </p>
 
-      <div class="stars">
-      <img v-for="star in stars" style="float: left; width: 15%;" :key="star" src='../assets/imgs/tracker/star.png' alt="Star image" />
-    </div>
+      
 
       <div class="buttons">
         <el-button @click="deposit(30)">Deposit ¥30</el-button>
