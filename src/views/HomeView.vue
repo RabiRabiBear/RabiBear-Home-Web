@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-30
+ * @LastEditTime: 2023-05-01
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -138,10 +138,6 @@ const currentDate = ref(new Date())
 </script>
 
 <style scoped>
-/* @import url('https://fonts.googleapis.com/css?family=Inconsolata|Oswald'); */
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
 .article h1 {
   font-family: 'Parisienne', cursive;

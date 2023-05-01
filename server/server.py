@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-27
+LastEditTime: 2023-04-28
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -38,7 +38,10 @@ def login():
         users = json.load(f)
     if name in users.keys():
         if users[name]['psw'] == psw:
-            response = {'userName': name, 'slogan': users[name]['slogan'], 'avatar': users[name]['avatar']}
+            slogan = users[name]['slogan'] if 'slogan' in users[name].keys() else None
+            # avatar = users[name]['avatar'] if 'avatar' in users[name].keys() else None
+            # response = {'userName': name, 'slogan': slogan, 'avatar': avatar}
+            response = {'userName': name, 'slogan': slogan}
             return jsonify(response)
         else:
             return jsonify({'error': 'Invalid credentials'}), 401

@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-27
+ * @LastEditTime: 2023-04-28
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -202,7 +202,6 @@ export default {
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
 .tracker {
   font-family: 'Bad Script', cursive;

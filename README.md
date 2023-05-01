@@ -41,8 +41,17 @@ npm install js-cookie
 npm run dev
 ```
 
+### Run the server
+
+```sh
+cd server/
+python server.py
+```
+
 ### Type-Check, Compile and Minify for Production
 
 ```sh
 npm run build
 ```
+
+
