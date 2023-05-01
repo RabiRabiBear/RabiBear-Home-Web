@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-26
+ * @LastEditTime: 2023-04-30
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -52,7 +52,7 @@
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card1.JPG" />
+          <img class="card_img" src="../assets/imgs/home_card/card1.png" />
         </el-card>
       </el-col>
       <el-col :span="6">
@@ -63,14 +63,14 @@
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card2.JPG" />
+          <img class="card_img" src="../assets/imgs/home_card/card2.png" />
         </el-card>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="6">
         <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <img class="card_img" src="../assets/imgs/home_card/card3.JPG" />
+          <img class="card_img" src="../assets/imgs/home_card/card3.png" />
         </el-card>
       </el-col>
       <!-- <el-col :span="6">
@@ -90,7 +90,7 @@
 
     <el-col :span="6">
       <el-card shadow="hover" :body-style="{ padding: '0px' }">
-        <img class="card_img" src="../assets/imgs/home_card/card4.JPG" />
+        <img class="card_img" src="../assets/imgs/home_card/card4.png" />
       </el-card>
     </el-col>
     <el-col :span="6">
