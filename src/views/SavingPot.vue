@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-04-28
+ * @LastEditTime: 2023-05-02
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -37,6 +37,7 @@ import axios from "axios";
 
 import pot1Image from '@/assets/imgs/tracker/pot1.jpeg';
 import pot2Image from '@/assets/imgs/tracker/pot2.jpeg';
+import { API_BASE_URL } from '@/config.js';
 
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
@@ -81,22 +82,24 @@ export default {
     //     // this.targetAmount += stars * 50;
     //   }
       this.shownAmount = this.savedAmount % this.targetAmount;
-      axios.post('http://localhost:8000/modify_saving_pot', { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
+      // axios.post('http://localhost:8000/modify_saving_pot', { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
+      axios.post(`${API_BASE_URL}/modify_saving_pot`, { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
+      
     },
     withdraw(amount) {
       this.savedAmount = Math.max(0, this.savedAmount - amount);
       this.shownAmount = this.savedAmount % this.targetAmount;
-      axios.post('http://localhost:8000/modify_saving_pot', { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
+      axios.post(`${API_BASE_URL}/modify_saving_pot`, { user_name: this.userName, key: 'savedAmount', val: this.savedAmount })
     }
   },
   created() {
-    axios
-      .get("../../server/resources/"+this.userName+"/saving_pot.json")
+    // axios
+    //   .get("../../server/resources/"+this.userName+"/saving_pot.json")
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'saving_pot' },
+    })
       .then((response) => {
-        // const keys = Object.keys(response.data); // get the keys of the object
-        // if (!keys.includes(formattedDate)) {
-        //   this.initialNewDay(currentDate, formattedDate, response.data, keys);
-        // }
         this.savedAmount = response.data.savedAmount;
         this.shownAmount = response.data.shownAmount;
         this.targetAmount = response.data.targetAmount;

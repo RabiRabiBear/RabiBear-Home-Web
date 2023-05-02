@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-22
- * @LastEditTime: 2023-04-28
+ * @LastEditTime: 2023-05-02
  * @FilePath: /RabiBear-Home-Web/src/views/LoginPage.vue
  * @Description: 
  * 
@@ -59,6 +59,8 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import Cookies from 'js-cookie'
+import defaultAvatar from '@/assets/imgs/default_avatar.png';
+import { API_BASE_URL } from '@/config.js';
 
 export default {
   name: 'LoginForm',
@@ -73,7 +75,8 @@ export default {
     const useravatar = ref('')
 
     const submitForm = async () => {
-      const response = await fetch('http://localhost:8000/login', {
+      // const response = await fetch('http://localhost:8000/login', {
+        const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -97,12 +100,16 @@ export default {
 
         const img = new Image();
         // img.src = userData.avatar;
-        img.src = "/server/resources/" + username.value + "/avatar.png";
+        
+        // img.src = "/home/biao/RabiBear-Home-Web/server/resources/" + username.value + "/avatar.png";
+        img.src = "../server/resources/" + username.value + "/avatar.png";
         console.log(img.src)
         if (img.width > 0 && img.height > 0) {
+          console.log("avatar exists")
           useravatar.value = img.src
         } else {
-          useravatar.value = "/src/assets/imgs/default_avatar.png";
+          // useravatar.value = "./src/assets/imgs/default_avatar.png";
+          useravatar.value = defaultAvatar
         }
         // if ('useravatar' in userData) {
         //   useravatar.value = userData.avatar

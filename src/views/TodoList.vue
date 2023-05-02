@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-04-12
- * @LastEditTime: 2023-04-27
+ * @LastEditTime: 2023-05-02
  * @FilePath: /RabiBear-Home-Web/src/views/TodoList.vue
  * @Description: 
  * 
@@ -46,6 +46,7 @@
 import { ref } from 'vue'
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { API_BASE_URL } from '@/config.js';
 
 export default {
   name: 'TodoList',
@@ -95,10 +96,10 @@ export default {
         user_name: this.userName,
       }
       // console.log(JSON.stringify(form_data));
-      axios.post('http://localhost:8000/submit', form_data_desktop)
+      axios.post(`${API_BASE_URL}/submit`, form_data_desktop)
     },
     addTodo() {
-      const maxId = Math.max(...this.todos.map(todo => todo.id));
+      const maxId = Math.max(...this.todos.map(todo => todo.id), 0);
       const todo = { id: maxId + 1, text: this.newTodo, done: false }
       this.todos.push(todo)
       this.newTodo = ''

@@ -27,3 +27,8 @@ coverage
 *.sln
 *.sw?
 server/resources/
+src/config.js
+
+
+
+

@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-04-28
+LastEditTime: 2023-05-02
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -18,9 +18,14 @@ CORS(app)
 
 data_path = "./resources/"
 user_info_file = "user_info.json"
-saving_pot_file = "saving_pot.json"
-daily_todo_file = "daily_todo.json"
-today_todo_file = "today_todo.json"
+# saving_pot_file = "saving_pot.json"
+# daily_todo_file = "daily_todo.json"
+# today_todo_file = "today_todo.json"
+file_type_path = {
+    'saving_pot': "saving_pot.json",
+    'daily_todo': "daily_todo.json",
+    'today_todo': "today_todo.json",
+}
 
 
 @app.route('/')
@@ -52,7 +57,7 @@ def login():
 def modify_saving_pot():
     data = request.get_json()
 
-    with open(os.path.join(data_path, data['user_name'], saving_pot_file),"r") as f:
+    with open(os.path.join(data_path, data['user_name'], file_type_path['saving_pot']),"r") as f:
         data_dict = json.load(f)
     if data['key'] == 'savedAmount':
 
@@ -61,24 +66,34 @@ def modify_saving_pot():
     else:
         raise ValueError("this is not allowed")
 
-    with open(os.path.join(data_path, data['user_name'], saving_pot_file),"w") as f:
+    with open(os.path.join(data_path, data['user_name'], file_type_path['saving_pot']),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
     return jsonify(success=True)
+
+@app.route('/get_data', methods=['GET'])
+def get_data():
+    user_name = request.args.get('user_name')
+    opt_type = request.args.get('opt_type')
+    # You can retrieve data from a database or any other source here
+    with open(os.path.join(data_path, user_name, file_type_path[opt_type]),"r") as f:
+        data_dict = json.load(f)
+    return jsonify(data_dict)
 
 @app.route('/init_new_day', methods=['POST'])
 def init_new_day():
     data = request.get_json()
 
-    with open(os.path.join(data_path, data['user_name'], daily_todo_file),"r") as f:
+    # print('init_new_day', data)
+    with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data_dict['daily']
-    with open(os.path.join(data_path, data['user_name'], daily_todo_file),"w") as f:
+    with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
 
-    with open(os.path.join(data_path, data['user_name'], today_todo_file),"r") as f:
+    with open(os.path.join(data_path, data['user_name'], file_type_path['today_todo']),"r") as f:
         data_dict = json.load(f)
     data_dict[data['date']] = data['today_todo']
-    with open(os.path.join(data_path, data['user_name'], today_todo_file),"w") as f:
+    with open(os.path.join(data_path, data['user_name'], file_type_path['today_todo']),"w") as f:
         json.dump(data_dict, f, indent=4, ensure_ascii=False)
         
     return jsonify(success=True)
@@ -88,9 +103,9 @@ def submit_form():
     
     data = request.get_json()
     if 'Today' in data['title']:
-        file_name = os.path.join(data_path, data['user_name'], today_todo_file)
+        file_name = os.path.join(data_path, data['user_name'], file_type_path['today_todo'])
     else:
-        file_name = os.path.join(data_path, data['user_name'], daily_todo_file)
+        file_name = os.path.join(data_path, data['user_name'], file_type_path['daily_todo'])
 
     
     with open(file_name,"r") as f:

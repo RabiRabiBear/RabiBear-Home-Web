@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-04-28
+ * @LastEditTime: 2023-05-02
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -11,23 +11,23 @@
 
 <template>
   <div class="tracker">
-    
+
 
 
     <div class="todo_list">
       <el-row justify="space-between" style="margin: 2rem;">
         <ActivityCalendar :data="Calenderdata" :width="35" :height="7" :header="header" :showWeekDayFlag="true"
-      :cellLength="17" :cellInterval="10" :cellBorderRadius="4" :fontSize="8" :showLevelFlag="true"
-      :levelFlagText="levels" :levelMapper="levelMapper" :backgroundColor="'#FFFFFB'" :colors="colors" />
+          :cellLength="17" :cellInterval="10" :cellBorderRadius="4" :fontSize="8" :showLevelFlag="true"
+          :levelFlagText="levels" :levelMapper="levelMapper" :backgroundColor="'#FFFFFB'" :colors="colors" />
       </el-row>
       <el-row :gutter="2" justify="space-between" style="margin: 1rem;">
         <el-col :span="1"></el-col>
         <el-col :span="10">
-          <todo-list :todos="today" :title="'Today\'s Todo'" :editable="true"/>
+          <todo-list :todos="today" :title="'Today\'s Todo'" :editable="true" />
         </el-col>
         <el-col :span="10">
           <!-- <img style="float: left; width: 15%;" src="../assets/imgs/sakura.png" /> -->
-          <todo-list :todos="daily" :title="'Daily Todo'" :editable="false"/>
+          <todo-list :todos="daily" :title="'Daily Todo'" :editable="false" />
         </el-col>
         <el-col :span="1"></el-col>
       </el-row>
@@ -35,9 +35,9 @@
 
     <el-row justify="space-between" style="margin: 2rem;">
       <SavingPot />
-      </el-row>
-    
-    
+    </el-row>
+
+
   </div>
 </template>
 
@@ -46,6 +46,8 @@ import TodoList from "./TodoList.vue";
 // import DailyTodo from "./DailyTodo.vue";
 import SavingPot from './SavingPot.vue';
 import axios from "axios";
+import { API_BASE_URL } from '@/config.js';
+
 
 // import { computed } from 'vue'
 // import { useStore } from 'vuex'
@@ -72,6 +74,7 @@ export default {
   methods: {
     initialNewDay(currentDate, formattedDate, data, keys) {
       const lastKey = keys[keys.length - 1];
+      console.log('initial new day', data)
       const undone = data[lastKey].filter(item => !item.done);
 
       // change the id of the undone todos to 1, 2, 3, ...
@@ -79,7 +82,7 @@ export default {
         return { ...todo, id: index + 1 }
       });
 
-      axios.post('http://localhost:8000/init_new_day', {user_name: this.userName, date: formattedDate, today_todo: sortedUndone })
+      axios.post(`${API_BASE_URL}/init_new_day`, { user_name: this.userName, date: formattedDate, today_todo: sortedUndone })
 
     },
     countDoneTodos(today, daily) {
@@ -140,7 +143,7 @@ export default {
       } else {
         return 5;
       }
-    }
+    },
   },
   // TODO: when change the page from header ruter, the data will not be updated for calender!!
   created() {
@@ -152,14 +155,13 @@ export default {
     const day = currentDate.getDate().toString().padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
-    console.log(formattedDate);
-    console.log(this.userName);
-    const today_filename = "../../server/resources/"+this.userName+"/today_todo.json";
-    const daily_filename = "../../server/resources/"+this.userName+"/daily_todo.json";
-
-    // First get the data from the server, and check if there is data for today
-    axios
-      .get(today_filename)
+    // console.log(formattedDate);
+    // console.log(this.userName);
+    
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'today_todo' },
+    })
       .then((response) => {
         const keys = Object.keys(response.data); // get the keys of the object
         if (!keys.includes(formattedDate)) {
@@ -170,8 +172,10 @@ export default {
 
     const json_todos = []
     // Fetch data for list 1 from server and assign it to list1
-    axios
-      .get(today_filename)
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'today_todo' },
+    })
       .then((response) => {
         json_todos.push(response.data)
         this.today = response.data[formattedDate];
@@ -182,8 +186,10 @@ export default {
 
 
     // Fetch data for list 2 from server and assign it to list2
-    axios
-      .get(daily_filename)
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'daily_todo' },
+    })
       .then((response) => {
         json_todos.push(response.data)
         this.daily = response.data[formattedDate];
@@ -202,12 +208,10 @@ export default {
 
 
 <style scoped>
-
 .tracker {
   font-family: 'Bad Script', cursive;
   /* font-family: 'Dancing Script', cursive; */
   text-align: center;
   /* font-size: 2.5rem; */
 }
-
 </style>
