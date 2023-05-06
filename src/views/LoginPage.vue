@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-22
- * @LastEditTime: 2023-05-02
+ * @LastEditTime: 2023-05-06
  * @FilePath: /RabiBear-Home-Web/src/views/LoginPage.vue
  * @Description: 
  * 
@@ -39,7 +39,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="Password" prop="password">
-            <el-input type="password" v-model="form.password"></el-input>
+            <el-input type="password" v-model="form.password" @keyup.enter="submitForm"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

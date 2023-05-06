@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-05-01
+ * @LastEditTime: 2023-05-06
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -90,7 +90,7 @@
 
     <el-col :span="6">
       <el-card shadow="hover" :body-style="{ padding: '0px' }">
-        <img class="card_img" src="../assets/imgs/home_card/card4.png" />
+        <img class="card_img" src="../assets/imgs/home_card/card5.png" />
       </el-card>
     </el-col>
     <el-col :span="6">
