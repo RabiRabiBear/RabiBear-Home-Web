@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-05-02
+ * @LastEditTime: 2023-05-07
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -35,8 +35,10 @@
 <script>
 import axios from "axios";
 
-import pot1Image from '@/assets/imgs/tracker/pot1.jpeg';
-import pot2Image from '@/assets/imgs/tracker/pot2.jpeg';
+import pot1Image from '@/assets/imgs/tracker/pot1.png';
+import pot2Image from '@/assets/imgs/tracker/pot2.png';
+import pot3Image from '@/assets/imgs/tracker/pot3.png';
+import pot4Image from '@/assets/imgs/tracker/pot4.png';
 import { API_BASE_URL } from '@/config.js';
 
 import { ref } from 'vue'
@@ -51,8 +53,8 @@ export default {
       potImages: {
         0: pot1Image,
         25: pot2Image,
-        50: 'image3.jpg',
-        75: 'image4.jpg'
+        50: pot3Image,
+        75: pot4Image
       },
       userName: ref(Cookies.get('username')),
     };
