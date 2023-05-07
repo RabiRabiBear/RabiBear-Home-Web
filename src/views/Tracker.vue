@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-05-02
+ * @LastEditTime: 2023-05-07
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -53,6 +53,7 @@ import { API_BASE_URL } from '@/config.js';
 // import { useStore } from 'vuex'
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
+import { onMounted } from 'vue';
 
 
 export default {
@@ -203,6 +204,58 @@ export default {
       });
 
   },
+  mounted() {
+  const lastRefresh = localStorage.getItem("lastRefresh");
+  const now = new Date();
+
+  if (!lastRefresh) {
+    // First visit, store current time and do not refresh
+    localStorage.setItem("lastRefresh", now.toISOString());
+  } else {
+    const lastRefreshDate = new Date(lastRefresh);
+    const timeSinceLastRefresh = now - lastRefreshDate;
+
+    if (timeSinceLastRefresh > 24 * 60 * 60 * 1000) {
+      // More than 24 hours since last refresh, store current time and refresh
+      localStorage.setItem("lastRefresh", now.toISOString());
+      location.reload();
+    }
+  }
+
+  // Refresh on the first click of the day after 8:00 am
+  document.addEventListener("click", () => {
+    const clickTime = new Date();
+    const clickHour = clickTime.getHours();
+    if (clickHour >= 8 && !lastRefresh) {
+      // After 8:00 am and no refresh has occurred yet, store current time and refresh
+      localStorage.setItem("lastRefresh", clickTime.toISOString());
+      location.reload();
+    }
+  });
+}
+
+
+// mounted() {
+//   const now = new Date();
+//   const refreshTime = new Date(
+//     now.getFullYear(),
+//     now.getMonth(),
+//     now.getDate(),
+//     10, // set refresh time to 8:00 am
+//     0,
+//     0,
+//     0
+//   );
+
+//   const timeUntilRefresh = refreshTime - now;
+//   if (timeUntilRefresh > 0) {
+//     setTimeout(() => {
+//       location.reload();
+//       console.log('refreshed')
+//     }, timeUntilRefresh);
+//   }
+// }
+
 };
 </script>
 
