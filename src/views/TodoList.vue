@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-04-12
- * @LastEditTime: 2023-05-06
+ * @LastEditTime: 2023-05-09
  * @FilePath: /RabiBear-Home-Web/src/views/TodoList.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <h1>{{ title }}</h1>
 
     <div style="display: flex; margin: 1rem auto;" v-if="editable">
-      <el-input style="font-family: 'Parisienne', cursive;" v-model="newTodo" placeholder="Enter a new todo" size="small">
+      <el-input style="font-family: 'Parisienne', cursive;" v-model="newTodo" @keyup.enter="addTodo" placeholder="Enter a new todo" size="small">
       </el-input>
       <el-button plain type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
     </div>
