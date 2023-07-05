@@ -31,6 +31,8 @@ npm install
 ```
 npm install axios
 npm install --save-dev @vitejs/plugin-vue
+npm i mpvue-calendar -S # for daily checkin calendar
+npm install vue-activity-calendar # for github-like activity calendar
 // npm install vuex
 npm install js-cookie
 ```

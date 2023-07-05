@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-05-07
+ * @LastEditTime: 2023-07-05
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -37,6 +37,14 @@
       <SavingPot />
     </el-row>
 
+    <div class="container">
+    <div class="container-select-modes">
+      <Calendar backgroundText class-name="multi-mode" selectMode="multi" monFirst="true" language="en"
+                :tileContent="tileContent" :select-date="multiModeDate" :begin="begin" 
+                @onSelect="onSelect"/>
+    </div>
+    </div>
+    
 
   </div>
 </template>
@@ -55,11 +63,14 @@ import { ref } from 'vue'
 import Cookies from 'js-cookie';
 import { onMounted } from 'vue';
 
+import Calendar from 'mpvue-calendar'
+
 
 export default {
   components: {
     TodoList,
     SavingPot,
+    Calendar,
   },
   data() {
     return {
@@ -158,7 +169,7 @@ export default {
 
     // console.log(formattedDate);
     // console.log(this.userName);
-    
+
     axios.get(`${API_BASE_URL}/get_data`, {
       headers: { 'Content-Type': 'application/json' },
       params: { user_name: this.userName, opt_type: 'today_todo' },
@@ -205,56 +216,106 @@ export default {
 
   },
   mounted() {
-  const lastRefresh = localStorage.getItem("lastRefresh");
-  const now = new Date();
+    const lastRefresh = localStorage.getItem("lastRefresh");
+    const now = new Date();
 
-  if (!lastRefresh) {
-    // First visit, store current time and do not refresh
-    localStorage.setItem("lastRefresh", now.toISOString());
-  } else {
-    const lastRefreshDate = new Date(lastRefresh);
-    const timeSinceLastRefresh = now - lastRefreshDate;
-
-    if (timeSinceLastRefresh > 24 * 60 * 60 * 1000) {
-      // More than 24 hours since last refresh, store current time and refresh
+    if (!lastRefresh) {
+      // First visit, store current time and do not refresh
       localStorage.setItem("lastRefresh", now.toISOString());
-      location.reload();
+    } else {
+      const lastRefreshDate = new Date(lastRefresh);
+      const timeSinceLastRefresh = now - lastRefreshDate;
+
+      if (timeSinceLastRefresh > 24 * 60 * 60 * 1000) {
+        // More than 24 hours since last refresh, store current time and refresh
+        localStorage.setItem("lastRefresh", now.toISOString());
+        location.reload();
+      }
+    }
+
+    // Refresh on the first click of the day after 8:00 am
+    document.addEventListener("click", () => {
+      const clickTime = new Date();
+      const clickHour = clickTime.getHours();
+      if (clickHour >= 8 && !lastRefresh) {
+        // After 8:00 am and no refresh has occurred yet, store current time and refresh
+        localStorage.setItem("lastRefresh", clickTime.toISOString());
+        location.reload();
+      }
+    });
+  },
+
+  setup() {
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentDay = currentDate.getDate();
+
+    // const tileContent = ref({ '2023-7-13': { className: 'tip class', content: 'some tip' } })
+    const tileContent = ref({
+        [`${currentYear}-${currentMonth}-${currentDay}`]: {
+          className: 'content-item-classname',
+          content: 'some things'
+        }
+      })
+    const begin = ref('2023-7-1')
+
+    function onSelect(selectDate) {
+        console.log(selectDate, 'selectDate')
+      }
+    
+      function selectYear(y, m) {
+        console.log(y, m, 'selectYear')
+      }
+
+      function onMonthChange(y, m) {
+        console.log(y, m, 'onMonthChange')
+      }
+
+      function selectMonth(y, m) {
+        console.log(y, m, 'selectMonth')
+      }
+
+      function next(y, m, d) {
+        console.log(y, m, d, 'nextnext')
+      }
+
+      function prev(y, m, d) {
+        console.log(y, m, d, 'prevprev')
+      }
+
+    return {
+      begin,
+      tileContent,
+      onSelect,
+      onMonthChange,
+        next,
+        prev,
+        selectMonth,
+        selectYear,
     }
   }
+  // mounted() {
+  //   const now = new Date();
+  //   const refreshTime = new Date(
+  //     now.getFullYear(),
+  //     now.getMonth(),
+  //     now.getDate(),
+  //     10, // set refresh time to 8:00 am
+  //     0,
+  //     0,
+  //     0
+  //   );
 
-  // Refresh on the first click of the day after 8:00 am
-  document.addEventListener("click", () => {
-    const clickTime = new Date();
-    const clickHour = clickTime.getHours();
-    if (clickHour >= 8 && !lastRefresh) {
-      // After 8:00 am and no refresh has occurred yet, store current time and refresh
-      localStorage.setItem("lastRefresh", clickTime.toISOString());
-      location.reload();
-    }
-  });
-}
-
-
-// mounted() {
-//   const now = new Date();
-//   const refreshTime = new Date(
-//     now.getFullYear(),
-//     now.getMonth(),
-//     now.getDate(),
-//     10, // set refresh time to 8:00 am
-//     0,
-//     0,
-//     0
-//   );
-
-//   const timeUntilRefresh = refreshTime - now;
-//   if (timeUntilRefresh > 0) {
-//     setTimeout(() => {
-//       location.reload();
-//       console.log('refreshed')
-//     }, timeUntilRefresh);
-//   }
-// }
+  //   const timeUntilRefresh = refreshTime - now;
+  //   if (timeUntilRefresh > 0) {
+  //     setTimeout(() => {
+  //       location.reload();
+  //       console.log('refreshed')
+  //     }, timeUntilRefresh);
+  //   }
+  // }
 
 };
 </script>
@@ -263,8 +324,62 @@ export default {
 <style scoped>
 .tracker {
   font-family: 'Bad Script', cursive;
-  /* font-family: 'Dancing Script', cursive; */
   text-align: center;
-  /* font-size: 2.5rem; */
 }
+
+/* .checkin_calendar * {
+  all: revert;
+} */
+.container{
+    width: 1000px;
+    margin: 0 auto;
+    .select-mode{
+      .vc-calendar-year{
+        margin-right: 10px;
+      }
+    }
+    .container-select-modes{
+      display: flex;
+      flex-wrap: wrap;
+      .select-mode, .multi-mode, .range-mode, .multiRange-mode{
+        &.mpvue-calendar{
+          width: 400px;
+          margin: 0 auto;
+          flex: none;
+        }
+      }
+    }
+    .container-view-modes{
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      .week-mode, .multi-mode, .range-mode, .multiRange-mode, .monthRange-mode{
+        &.mpvue-calendar{
+          width: 400px;
+          margin: 0 auto;
+          flex: none;
+        }
+      }
+    }
+  }
+
+  .multi-mode{
+    &:before{
+      content: 'multi select mode';
+      text-align: center;
+      display: block;
+      color: #38778a;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .content-item-classname{
+      color: #fff;
+      background: #0b6cbc;
+      display: inline-block;
+      white-space: nowrap;
+      padding: 0 3px;
+      border-radius: 3px;
+      transform: scale(.8);
+    }
+  }
 </style>

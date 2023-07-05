@@ -15,6 +15,7 @@
     "element-plus": "^2.2.28",
     "google-fonts-webpack-plugin": "^0.4.4",
     "js-cookie": "^3.0.5",
+    "mpvue-calendar": "^3.0.1",
     "vue": "^3.2.45",
     "vue-activity-calendar": "^1.2.2",
     "vue-router": "^4.1.6",

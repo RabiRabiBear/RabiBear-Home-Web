@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-04-12
- * @LastEditTime: 2023-05-09
+ * @LastEditTime: 2023-07-05
  * @FilePath: /RabiBear-Home-Web/src/views/TodoList.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
     <h1>{{ title }}</h1>
 
     <div style="display: flex; margin: 1rem auto;" v-if="editable">
-      <el-input style="font-family: 'Parisienne', cursive;" v-model="newTodo" @keyup.enter="addTodo" placeholder="Enter a new todo" size="small">
+      <el-input style="font-family: 'Parisienne', cursive;" v-model="newTodo" @keyup.enter="addTodo"
+        placeholder="Enter a new todo" size="small">
       </el-input>
       <el-button plain type="primary" @click="addTodo" style="margin-left: 0.5rem;">Add</el-button>
     </div>
@@ -23,7 +24,8 @@
     </div>
 
     <!-- <el-table :data="todos" stripe :header-cell-style="{'background':'#FFFFFB', 'font-weight': bold;}" > -->
-      <el-table :data="todos" stripe :header-cell-style="{ background: '#FFFFFB', 'font-weight': 'bold', 'font-size': '1.3em' }">
+    <el-table :data="todos" stripe
+      :header-cell-style="{ background: '#FFFFFB', 'font-weight': 'bold', 'font-size': '1.3em' }">
       <el-table-column prop="text" label="Todo">
         <template #default="{ row }">
           <div :style="row.done ? 'text-decoration: line-through;' : ''">{{ row.text }}</div>
@@ -38,7 +40,7 @@
       </el-table-column>
     </el-table>
 
-    
+
   </div>
 </template>
 
@@ -90,7 +92,7 @@ export default {
 
       const form_data_desktop = {
         date: formattedDate,
-        title : this.title,
+        title: this.title,
         todo: todo,
         opt: opt,
         user_name: this.userName,
@@ -99,6 +101,9 @@ export default {
       axios.post(`${API_BASE_URL}/submit`, form_data_desktop)
     },
     addTodo() {
+      if (this.newTodo.trim() === '') {
+        return; // Do nothing if newTodo is empty
+      }
       const maxId = Math.max(...this.todos.map(todo => todo.id), 0);
       const todo = { id: maxId + 1, text: this.newTodo, done: false }
       this.todos.push(todo)
@@ -141,11 +146,9 @@ export default {
 </script>
 
 <style scoped>
-
 button {
   font-family: 'Parisienne', cursive;
   /* font-family: 'Dancing Script', cursive; */
   text-align: center;
 }
-
 </style>
