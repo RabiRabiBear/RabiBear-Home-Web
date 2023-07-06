@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-05-02
+LastEditTime: 2023-07-06
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -25,6 +25,7 @@ file_type_path = {
     'saving_pot': "saving_pot.json",
     'daily_todo': "daily_todo.json",
     'today_todo': "today_todo.json",
+    'exercise_calendar': "exercise_calendar.json",
 }
 
 

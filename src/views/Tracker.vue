@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-07-05
+ * @LastEditTime: 2023-07-06
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -39,8 +39,8 @@
 
     <div class="container">
     <div class="container-select-modes">
-      <Calendar backgroundText class-name="multi-mode" selectMode="multi" monFirst="true" language="en"
-                :tileContent="tileContent" :select-date="multiModeDate" :begin="begin" 
+      <Calendar backgroundText class-name="multi-mode" selectMode="multi" :monFirst="true" language="en"
+                :tileContent="tileContent" :select-date="exerciseDate" :begin="begin" 
                 @onSelect="onSelect"/>
     </div>
     </div>
@@ -76,6 +76,7 @@ export default {
     return {
       today: [],
       daily: [],
+      exerciseDate: '',
       header: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       levels: ["less", "more"],
       Calenderdata: [],
@@ -214,6 +215,8 @@ export default {
         console.error(error);
       });
 
+    
+
   },
   mounted() {
     const lastRefresh = localStorage.getItem("lastRefresh");
@@ -251,6 +254,8 @@ export default {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const currentDay = currentDate.getDate();
+    const userName = Cookies.get('username');
+    // console.log(Cookies.get('username'));
 
     // const tileContent = ref({ '2023-7-13': { className: 'tip class', content: 'some tip' } })
     const tileContent = ref({
@@ -259,7 +264,27 @@ export default {
           content: 'some things'
         }
       })
-    const begin = ref('2023-7-1')
+    const begin = ref('2023-7-01')
+    // const multiModeDate = ref(['2023-7-1', '2023-7-11', '2023-7-21'])
+    // let exerciseDate = ref(['2023-7-4', '2023-7-5'])
+    const exerciseDate = ref([]);
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: userName, opt_type: 'exercise_calendar' },
+    })
+      .then((response) => {
+        exerciseDate.value = response.data;
+        // console.log(response.data, 'response.data')
+        // exerciseDate.push(response.data)
+        // let exerciseDate = ref(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      // let exerciseDate = ref(response.data);
+
+      console.log(exerciseDate, 'exerciseDate')
 
     function onSelect(selectDate) {
         console.log(selectDate, 'selectDate')
@@ -288,6 +313,7 @@ export default {
     return {
       begin,
       tileContent,
+      exerciseDate,
       onSelect,
       onMonthChange,
         next,
