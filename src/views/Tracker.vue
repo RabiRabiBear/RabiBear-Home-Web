@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-07-06
+ * @LastEditTime: 2023-07-08
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
 
 
     <div class="todo_list">
-      <el-row justify="space-between" style="margin: 2rem;">
+      <el-row justify="center" style="margin: 2rem;">
         <ActivityCalendar :data="Calenderdata" :width="35" :height="7" :header="header" :showWeekDayFlag="true"
           :cellLength="17" :cellInterval="10" :cellBorderRadius="4" :fontSize="8" :showLevelFlag="true"
           :levelFlagText="levels" :levelMapper="levelMapper" :backgroundColor="'#FFFFFB'" :colors="colors" />
@@ -26,25 +26,33 @@
           <todo-list :todos="today" :title="'Today\'s Todo'" :editable="true" />
         </el-col>
         <el-col :span="10">
-          <!-- <img style="float: left; width: 15%;" src="../assets/imgs/sakura.png" /> -->
-          <todo-list :todos="daily" :title="'Daily Todo'" :editable="false" />
+          <!-- <todo-list :todos="daily" :title="'Daily Todo'" :editable="false" /> -->
+          <todo-list :todos="hobbies" :title="'Hobbies'" :editable="true" />
         </el-col>
         <el-col :span="1"></el-col>
       </el-row>
     </div>
 
-    <el-row justify="space-between" style="margin: 2rem;">
+    <!-- <el-row justify="space-between" style="margin: 2rem;">
       <SavingPot />
-    </el-row>
+    </el-row> -->
 
-    <div class="container">
-    <div class="container-select-modes">
-      <Calendar backgroundText class-name="multi-mode" selectMode="multi" :monFirst="true" language="en"
-                :tileContent="tileContent" :select-date="exerciseDate" :begin="begin" 
-                @onSelect="onSelect"/>
-    </div>
-    </div>
-    
+    <div class="daily_calendar"> 
+    <el-row :gutter="1" justify="space-between" style="margin: 4rem;">
+      <!-- <el-col :span="1"></el-col> -->
+        <el-col :span="7">
+        <Calendar ref="calendar" backgroundText class-name="exercise_calendar" selectMode="multi" :monFirst="true" language="en"
+          :select-date="exerciseDate" :begin="begin" @onSelect="exercise_onSelect" />
+        </el-col>
+        <!-- <el-col :span="1"></el-col> -->
+        <el-col :span="7"><SavingPot /></el-col>
+        <el-col :span="7">
+          <Calendar ref="skincareCalendar" backgroundText class-name="skincare_calendar" selectMode="multi" :monFirst="true" language="en"
+          :select-date="skincareDate" :begin="begin" @onSelect="skincare_onSelect" />
+        </el-col>
+    </el-row>
+  </div>
+
 
   </div>
 </template>
@@ -59,9 +67,9 @@ import { API_BASE_URL } from '@/config.js';
 
 // import { computed } from 'vue'
 // import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { ref,onMounted, computed } from 'vue'
 import Cookies from 'js-cookie';
-import { onMounted } from 'vue';
+// import { onMounted } from 'vue';
 
 import Calendar from 'mpvue-calendar'
 
@@ -75,8 +83,10 @@ export default {
   data() {
     return {
       today: [],
-      daily: [],
-      exerciseDate: '',
+      // daily: [],
+      hobbies: [],
+      exerciseDate: [],
+      skincareDate: [],
       header: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       levels: ["less", "more"],
       Calenderdata: [],
@@ -106,26 +116,28 @@ export default {
 
       // create new arrays for today and daily
       const todayTodos = JSON.parse(JSON.stringify(today));
-      const dailyTodos = JSON.parse(JSON.stringify(daily));
 
 
 
       Object.keys(todayTodos).forEach(key => {
         combinedData[key] = todayTodos[key];
       });
+      console.log('combined data', combinedData)
 
-      Object.keys(dailyTodos).forEach(key => {
-        if (combinedData[key]) {
-          combinedData[key].push(...dailyTodos[key]);
-        } else {
-          combinedData[key] = dailyTodos[key];
-        }
-      });
+      if(daily){
+        const dailyTodos = JSON.parse(JSON.stringify(daily));
+        Object.keys(dailyTodos).forEach(key => {
+          if (combinedData[key]) {
+            combinedData[key].push(...dailyTodos[key]);
+          } else {
+            combinedData[key] = dailyTodos[key];
+          }
+        });
 
-      delete combinedData['daily'];
-      // console.log('combined data', combinedData)
-
-      // count the number of done todos for each date
+        delete combinedData['daily'];
+      }
+        
+     
       const result = [];
 
       for (const date in combinedData) {
@@ -140,7 +152,6 @@ export default {
       }
 
       this.Calenderdata = result;
-      // console.log('calendaer data', this.Calenderdata);
     },
     levelMapper(count) {
       if (count == 0) {
@@ -167,9 +178,6 @@ export default {
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
-
-    // console.log(formattedDate);
-    // console.log(this.userName);
 
     axios.get(`${API_BASE_URL}/get_data`, {
       headers: { 'Content-Type': 'application/json' },
@@ -199,24 +207,67 @@ export default {
 
 
     // Fetch data for list 2 from server and assign it to list2
+    // axios.get(`${API_BASE_URL}/get_data`, {
+    //   headers: { 'Content-Type': 'application/json' },
+    //   params: { user_name: this.userName, opt_type: 'daily_todo' },
+    // })
+    //   .then((response) => {
+    //     json_todos.push(response.data)
+    //     this.daily = response.data[formattedDate];
+    //     console.log('daily', this.daily)
+    //   })
+    //   .then(() => {
+    //     // json_todos array may still be empty if the axios request to the server hasn't finished executing yet. The axios.get() method is asynchronous, meaning that it doesn't block the execution of the rest of the code while waiting for a response from the server.
+    //     this.countDoneTodos(json_todos[0], json_todos[1]);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
     axios.get(`${API_BASE_URL}/get_data`, {
       headers: { 'Content-Type': 'application/json' },
-      params: { user_name: this.userName, opt_type: 'daily_todo' },
+      params: { user_name: this.userName, opt_type: 'hobbies' },
     })
       .then((response) => {
-        json_todos.push(response.data)
-        this.daily = response.data[formattedDate];
+        // json_todos.push(response.data)
+        this.hobbies = response.data;
+        // console.log('daily', this.daily)
       })
       .then(() => {
         // json_todos array may still be empty if the axios request to the server hasn't finished executing yet. The axios.get() method is asynchronous, meaning that it doesn't block the execution of the rest of the code while waiting for a response from the server.
-        this.countDoneTodos(json_todos[0], json_todos[1]);
+        // this.countDoneTodos(json_todos[0], json_todos[1]);
+        this.countDoneTodos(json_todos[0], null);
       })
       .catch((error) => {
         console.error(error);
       });
 
-    
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'exercise_calendar' },
+    })
+      .then((response) => {
+        this.exerciseDate = response.data;
+        // console.log('exerciseDate', this.exerciseDate)
+        this.$refs.calendar.render(year, (currentDate.getMonth() + 1).toString());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
+    // this.$refs.calendar.render(year, month);
+    axios.get(`${API_BASE_URL}/get_data`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: { user_name: this.userName, opt_type: 'skincare_calendar' },
+    })
+      .then((response) => {
+        this.skincareDate = response.data;
+        this.$refs.skincareCalendar.render(year, (currentDate.getMonth() + 1).toString());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    
   },
   mounted() {
     const lastRefresh = localStorage.getItem("lastRefresh");
@@ -248,101 +299,29 @@ export default {
     });
   },
 
+
   setup() {
-
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentDay = currentDate.getDate();
     const userName = Cookies.get('username');
-    // console.log(Cookies.get('username'));
 
-    // const tileContent = ref({ '2023-7-13': { className: 'tip class', content: 'some tip' } })
-    const tileContent = ref({
-        [`${currentYear}-${currentMonth}-${currentDay}`]: {
-          className: 'content-item-classname',
-          content: 'some things'
-        }
-      })
     const begin = ref('2023-7-01')
-    // const multiModeDate = ref(['2023-7-1', '2023-7-11', '2023-7-21'])
-    // let exerciseDate = ref(['2023-7-4', '2023-7-5'])
-    const exerciseDate = ref([]);
-    axios.get(`${API_BASE_URL}/get_data`, {
-      headers: { 'Content-Type': 'application/json' },
-      params: { user_name: userName, opt_type: 'exercise_calendar' },
-    })
-      .then((response) => {
-        exerciseDate.value = response.data;
-        // console.log(response.data, 'response.data')
-        // exerciseDate.push(response.data)
-        // let exerciseDate = ref(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      
+    function exercise_onSelect(selectDate) {
+      axios.post(`${API_BASE_URL}/update_date_calendar`, { type: 'exercise_calendar', user_name: userName, values: Object.values(selectDate) })
+      console.log(selectDate, 'selectDate')
+    }
 
-      // let exerciseDate = ref(response.data);
+    function skincare_onSelect(selectDate) {
+      axios.post(`${API_BASE_URL}/update_date_calendar`, { type: 'skincare_calendar', user_name: userName, values: Object.values(selectDate) })
+      console.log(selectDate, 'selectDate')
+    }
 
-      console.log(exerciseDate, 'exerciseDate')
-
-    function onSelect(selectDate) {
-        console.log(selectDate, 'selectDate')
-      }
-    
-      function selectYear(y, m) {
-        console.log(y, m, 'selectYear')
-      }
-
-      function onMonthChange(y, m) {
-        console.log(y, m, 'onMonthChange')
-      }
-
-      function selectMonth(y, m) {
-        console.log(y, m, 'selectMonth')
-      }
-
-      function next(y, m, d) {
-        console.log(y, m, d, 'nextnext')
-      }
-
-      function prev(y, m, d) {
-        console.log(y, m, d, 'prevprev')
-      }
 
     return {
       begin,
-      tileContent,
-      exerciseDate,
-      onSelect,
-      onMonthChange,
-        next,
-        prev,
-        selectMonth,
-        selectYear,
+      exercise_onSelect,
+      skincare_onSelect,
     }
   }
-  // mounted() {
-  //   const now = new Date();
-  //   const refreshTime = new Date(
-  //     now.getFullYear(),
-  //     now.getMonth(),
-  //     now.getDate(),
-  //     10, // set refresh time to 8:00 am
-  //     0,
-  //     0,
-  //     0
-  //   );
-
-  //   const timeUntilRefresh = refreshTime - now;
-  //   if (timeUntilRefresh > 0) {
-  //     setTimeout(() => {
-  //       location.reload();
-  //       console.log('refreshed')
-  //     }, timeUntilRefresh);
-  //   }
-  // }
-
 };
 </script>
 
@@ -353,59 +332,30 @@ export default {
   text-align: center;
 }
 
-/* .checkin_calendar * {
-  all: revert;
-} */
-.container{
-    width: 1000px;
-    margin: 0 auto;
-    .select-mode{
-      .vc-calendar-year{
-        margin-right: 10px;
-      }
-    }
-    .container-select-modes{
-      display: flex;
-      flex-wrap: wrap;
-      .select-mode, .multi-mode, .range-mode, .multiRange-mode{
-        &.mpvue-calendar{
-          width: 400px;
-          margin: 0 auto;
-          flex: none;
-        }
-      }
-    }
-    .container-view-modes{
-      display: flex;
-      flex-wrap: wrap;
-      position: relative;
-      .week-mode, .multi-mode, .range-mode, .multiRange-mode, .monthRange-mode{
-        &.mpvue-calendar{
-          width: 400px;
-          margin: 0 auto;
-          flex: none;
-        }
-      }
-    }
-  }
 
-  .multi-mode{
+
+.exercise_calendar{
     &:before{
-      content: 'multi select mode';
+      content: 'Exercise Calendar';
       text-align: center;
       display: block;
       color: #38778a;
       font-weight: bold;
       margin-bottom: 5px;
     }
-    .content-item-classname{
-      color: #fff;
-      background: #0b6cbc;
-      display: inline-block;
-      white-space: nowrap;
-      padding: 0 3px;
-      border-radius: 3px;
-      transform: scale(.8);
-    }
+    .selected {
+  background: red;
+  color:  yellow;
+}
+.skincare_calendar {
+  &:before{
+    content: 'Skincare Calendar';
+    text-align: center;
+    display: block;
+    color: #38778a;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+}
   }
 </style>

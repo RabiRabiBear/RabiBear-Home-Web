@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-07-06
+LastEditTime: 2023-07-08
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -26,6 +26,8 @@ file_type_path = {
     'daily_todo': "daily_todo.json",
     'today_todo': "today_todo.json",
     'exercise_calendar': "exercise_calendar.json",
+    'skincare_calendar': "skincare_calendar.json",
+    'hobbies': "hobbies.json",
 }
 
 
@@ -85,11 +87,11 @@ def init_new_day():
     data = request.get_json()
 
     # print('init_new_day', data)
-    with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"r") as f:
-        data_dict = json.load(f)
-    data_dict[data['date']] = data_dict['daily']
-    with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"w") as f:
-        json.dump(data_dict, f, indent=4, ensure_ascii=False)
+    # with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"r") as f:
+    #     data_dict = json.load(f)
+    # data_dict[data['date']] = data_dict['daily']
+    # with open(os.path.join(data_path, data['user_name'], file_type_path['daily_todo']),"w") as f:
+    #     json.dump(data_dict, f, indent=4, ensure_ascii=False)
 
     with open(os.path.join(data_path, data['user_name'], file_type_path['today_todo']),"r") as f:
         data_dict = json.load(f)
@@ -99,37 +101,64 @@ def init_new_day():
         
     return jsonify(success=True)
 
+@app.route('/update_date_calendar', methods=['POST'])
+def update_date_calendar():
+    data = request.get_json()
+
+    with open(os.path.join(data_path, data['user_name'], file_type_path[data['type']]),"w") as f:
+        json.dump(data['values'], f)
+
+    return jsonify(success=True)
+
+
 @app.route('/submit', methods=['POST'])
 def submit_form():
     
     data = request.get_json()
     if 'Today' in data['title']:
         file_name = os.path.join(data_path, data['user_name'], file_type_path['today_todo'])
+    elif 'Hobbies' in data['title']:
+        file_name = os.path.join(data_path, data['user_name'], file_type_path['hobbies'])
     else:
         file_name = os.path.join(data_path, data['user_name'], file_type_path['daily_todo'])
 
     
     with open(file_name,"r") as f:
         data_dict = json.load(f)
-    
-    # modify today's todo
-    if data['opt'] == 'add':
-        print(data['date'], data_dict.keys())
-        assert data['date'] in data_dict.keys()
-        data_dict[data['date']].append(data['todo'])
-        
-    elif data['date'] in data_dict.keys():
-        for i, todo in enumerate(data_dict[data['date']]):
-            if todo['id'] == data['todo']['id']:
-                if data['opt'] == 'toggle':
-                    data_dict[data['date']][i] = data['todo']
-                elif data['opt'] == 'remove':
-                    data_dict[data['date']].pop(i)
-                else:
-                    ValueError("No such opt in the data_dict")
-                break
+
+    # handle hobbies seperately
+    if 'Hobbies' in data['title']:
+        if data['opt'] == 'add':
+            data_dict.append(data['todo'])
+        else:
+            for i, todo in enumerate(data_dict):
+                if todo['id'] == data['todo']['id']:
+                    if data['opt'] == 'toggle':
+                        data_dict[i] = data['todo']
+                    elif data['opt'] == 'remove':
+                        data_dict.pop(i)
+                    else:
+                        ValueError("No such opt in the data_dict")
+                    break
     else:
-        ValueError("No such date in the data_dict")
+        # modify today's todo
+        if data['opt'] == 'add':
+            # print(data['date'], data_dict.keys())
+            assert data['date'] in data_dict.keys()
+            data_dict[data['date']].append(data['todo'])
+            
+        elif data['date'] in data_dict.keys():
+            for i, todo in enumerate(data_dict[data['date']]):
+                if todo['id'] == data['todo']['id']:
+                    if data['opt'] == 'toggle':
+                        data_dict[data['date']][i] = data['todo']
+                    elif data['opt'] == 'remove':
+                        data_dict[data['date']].pop(i)
+                    else:
+                        ValueError("No such opt in the data_dict")
+                    break
+        else:
+            ValueError("No such date in the data_dict")
     
 
     with open(file_name,"w") as f:
