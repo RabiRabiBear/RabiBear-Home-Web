@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-27
+ * @LastEditTime: 2023-07-12
  * @FilePath: /RabiBear-Home-Web/src/router/index.ts
  * @Description: 
  * 
@@ -53,6 +53,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginPage.vue')
+    },
+    {
+      path: '/timelines',
+      name: 'timelines',
+      component: () => import('../views/Timelines.vue')
     }
   ]
 })

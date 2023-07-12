@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-04-26
+ * @LastEditTime: 2023-07-12
  * @FilePath: /RabiBear-Home-Web/src/views/WhatToEat.vue
  * @Description: 
  * 
@@ -117,5 +117,8 @@
   font-family: 'Bad Script', cursive;
   text-align: center;
   font-size: 2rem;
+}
+.el-transfer-panel__header span.el-checkbox__label span {
+  margin: 5rem;
 }
 </style>
