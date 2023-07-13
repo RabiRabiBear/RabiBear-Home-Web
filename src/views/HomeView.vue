@@ -1,7 +1,16 @@
 <!--
  * @Author: Alchemistyui
+ * @Date: 2023-07-12
+ * @LastEditTime: 2023-07-13
+ * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023, All Rights Reserved. 
+-->
+<!--
+ * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-05-06
+ * @LastEditTime: 2023-07-13
  * @FilePath: /RabiBear-Home-Web/src/views/HomeView.vue
  * @Description: 
  * 
@@ -38,6 +47,12 @@
       <img style="max-width: 10%; transform: scale(-1, -1);" src="../assets/imgs/home_card/border1.png" />
     </div>
   </div>
+
+
+
+  <love-counter></love-counter>
+
+
   <main class="card_view">
     <!-- gutter specify the spacing between columns -->
     <!-- span: means that each column will take up 8/24 or one-third of the total width -->
@@ -131,10 +146,16 @@
 </template>
 
 
-<script lang="ts" setup>
+<script>
 import { ref } from 'vue'
+import LoveCounter from "./LoveCounter.vue";
 
-const currentDate = ref(new Date())
+
+export default {
+  components: {
+    LoveCounter,
+  }
+}
 </script>
 
 <style scoped>
@@ -189,7 +210,7 @@ const currentDate = ref(new Date())
 .card_view {
   width: 100%;
   margin: 0 auto;
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   /* background-color: aquamarine; */
 }
 
