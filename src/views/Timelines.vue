@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-07-12
- * @LastEditTime: 2023-07-12
+ * @LastEditTime: 2023-07-14
  * @FilePath: /RabiBear-Home-Web/src/views/Timelines.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 const activities = [
     {
-        content: ['05.12 小兔子哭着要回家于是回家&见父母了'],
+        content: ['05.12 小兔子哭着要回家→回国&见父母'],
         timestamp: '2023',
     },
     {
@@ -42,8 +42,14 @@ const activities = [
 </template>
 
 <style scoped>
+@import '@/assets/fonts/fonts.css';
+/* .timeline_area {
+    font-family: 'FangzhengYoumaozai', sans-serif;
+} */
 .timeline {
     padding: 50px;
+    font-family: 'FZShaeryingbi', sans-serif;
+    font-size: large;
 }
 .timeline-right {
     left: 50%;
