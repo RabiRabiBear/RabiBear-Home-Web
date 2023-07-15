@@ -1,0 +1,168 @@
+<!-- <template>
+    <div class="todo-list">
+      <h2>{{ title }}</h2>
+      <ul>
+        <li v-for="(item, index) in todoItems" :key="index">
+          <div class="item-header" @click="toggleSection(item)">
+            <el-checkbox
+              v-model="item.checked"
+              @change="handleChange(item)"
+              :disabled="!isAdmin"
+            >
+              {{ item.text }}
+            </el-checkbox>
+            <i :class="['el-icon-arrow-right', { 'expanded': item.expanded }]"></i>
+          </div>
+          <div v-if="item.expanded" class="item-section">
+            <div class="section-content">
+              <div class="section-date">{{ item.date }}</div>
+              <div class="section-text">{{ item.sectionText }}</div>
+              <el-image
+                v-if="item.sectionImage"
+                :src="item.sectionImage"
+                :fit="fitMode"
+                class="section-image"
+              ></el-image>
+              <div class="section-actions" v-if="isAdmin">
+                <el-button type="primary" size="small" @click="editSection(item)">
+                  Edit
+                </el-button>
+              </div>
+            </div>
+            <el-dialog v-model="editDialogVisible" title="Edit Section" :append-to-body="true">
+              <el-form ref="editForm" :model="editForm" label-position="top">
+                <el-form-item label="Date">
+                  <el-date-picker v-model="editForm.date" type="date" placeholder="Select date"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="Text">
+                  <el-input v-model="editForm.text" type="textarea" rows="3"></el-input>
+                </el-form-item>
+                <el-form-item label="Image">
+                  <el-upload
+                    class="upload-demo"
+                    :action="uploadUrl"
+                    :on-success="handleUploadSuccess"
+                    :show-file-list="false"
+                    accept="image/*"
+                  >
+                    <el-button size="small" type="primary">Upload</el-button>
+                  </el-upload>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="saveSection">Save</el-button>
+                </el-form-item>
+              </el-form>
+            </el-dialog>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+
+<script>
+import { ref } from 'vue';
+import { API_BASE_URL } from '@/config.js';
+
+export default {
+  data() {
+    return {
+      title: "Todo List",
+      todoItems: [
+        { text: "Item 1", checked: false, expanded: false, date: "", sectionText: "", sectionImage: "" },
+        { text: "Item 2", checked: false, expanded: false, date: "", sectionText: "", sectionImage: "" },
+        { text: "Item 3", checked: false, expanded: false, date: "", sectionText: "", sectionImage: "" },
+      ],
+      isAdmin: true,
+      editDialogVisible: false,
+      editForm: {
+        date: "",
+        text: "",
+        image: null,
+      },
+      fitMode: "cover",
+      uploadUrl: `${API_BASE_URL}`,
+    };
+  },
+  methods: {
+    toggleSection(item) {
+      item.expanded = !item.expanded;
+    },
+    handleChange(item) {
+      if (!this.isAdmin) {
+        alert("You are not allowed to change the item status.");
+        item.checked = !item.checked; // Reset the checkbox state
+      }
+    },
+    editSection(item) {
+      this.editForm.date = item.date;
+      this.editForm.text = item.sectionText;
+      this.editForm.image = null;
+      this.editDialogVisible = true;
+    },
+    saveSection() {
+      // Here, you would typically send the edited section data to the server for saving
+      // You can access the edited data from `this.editForm`
+      // Replace the following console.log with your server API call
+      console.log("Save section:", this.editForm);
+
+      this.editDialogVisible = false;
+    },
+    handleUploadSuccess(response) {
+      // Handle the image upload success
+      // The response contains the URL or details of the uploaded image
+      // You can update `this.editForm.image` with the received URL or relevant data
+      console.log("Upload success:", response);
+    },
+  },
+};
+</script> -->
+<template>
+    <div class="todo-list">
+        <h2>{{ title }}</h2>
+        <ul>
+            <li v-for="(item, index) in todoItems" :key="index">
+                <el-checkbox v-model="item.checked" size="large" border :disabled="!isAdmin">
+                    {{ item.text }}
+                </el-checkbox>
+            </li>
+        </ul>
+    </div>
+</template>
+  
+<script>
+import { ref } from 'vue';
+import Cookies from 'js-cookie';
+
+export default {
+    data() {
+        return {
+            title: "Todo List",
+            todoItems: [
+                { text: "Item 1", checked: false },
+                { text: "Item 2", checked: false },
+                { text: "Item 3", checked: false },
+            ],
+            isAdmin: ref(['rabbit', 'bear'].includes(Cookies.get('username'))),
+        };
+    },
+    // mounted() {
+        
+    // },
+    methods: {
+        // handleChange(item) {
+        //     if (!this.isAdmin) {
+        //         alert("You are not allowed to change the item status.");
+        //         item.checked = !item.checked; // Reset the checkbox state
+        //     }
+        // },
+    },
+};
+</script>
+  
+<style>
+.todo-list {
+    margin: 20px;
+}
+</style>
+  

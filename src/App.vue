@@ -25,7 +25,7 @@ import HelloWorld from './components/HelloWorld.vue'
           <RouterLink class="router_link" to="/timelines">Timelines</RouterLink>
         </el-menu-item>
         <el-menu-item index="4">
-          <RouterLink class="router_link" to="/maintenance">100 Things & Wish List</RouterLink>
+          <RouterLink class="router_link" to="/100Things">100 Things & Wish List</RouterLink>
         </el-menu-item>
         <el-menu-item index="5">
           <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
