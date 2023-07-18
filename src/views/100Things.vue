@@ -119,12 +119,15 @@ export default {
 </script> -->
 <template>
     <div class="todo-list">
-        <h2>{{ title }}</h2>
+        <h2 class="title">{{ title }}</h2>
         <ul>
-            <li v-for="(item, index) in todoItems" :key="index">
-                <el-checkbox v-model="item.checked" size="large" border :disabled="!isAdmin">
+            <li v-for="(item, index) in todoItems" :key="index" style="list-style-type:none;">
+                <el-card class="item_card" shadow="hover" :body-style="{ padding: '0.1rem' }">
+                    <el-checkbox v-model="item.checked" size="large" :disabled="!isAdmin" style="padding-left: 1rem;">
                     {{ item.text }}
                 </el-checkbox>
+            </el-card>
+                
             </li>
         </ul>
     </div>
@@ -137,7 +140,8 @@ import Cookies from 'js-cookie';
 export default {
     data() {
         return {
-            title: "Todo List",
+            // title: "如果说这一生有一件事最幸运 就是赌中亿分之一的机率遇见你",
+            title: "如果說這一生有一件事最幸運💖 \n 就是賭中億分之一的機率遇見你",
             todoItems: [
                 { text: "Item 1", checked: false },
                 { text: "Item 2", checked: false },
@@ -161,8 +165,25 @@ export default {
 </script>
   
 <style>
+@import '@/assets/fonts/fonts.css';
+
 .todo-list {
-    margin: 20px;
+    margin: 2rem;
+    /* text-align: center; */
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.item_card {
+    height:2.5rem;
+    margin: 0.5rem;
+    width: 40rem;
+}
+.title {
+    font-family: 'OZJiaotangxiawucha', sans-serif;
+    white-space: pre-wrap;
+    margin-bottom: 1rem;
 }
 </style>
   
