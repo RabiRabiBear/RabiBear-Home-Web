@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-22
- * @LastEditTime: 2023-05-06
+ * @LastEditTime: 2023-07-18
  * @FilePath: /RabiBear-Home-Web/src/views/LoginPage.vue
  * @Description: 
  * 
@@ -85,7 +85,7 @@ export default {
       if (response.ok) {
         const userData = await response.json()
         console.log(userData)
-        Cookies.set('username', userData.userName, { expires: 14 })
+        Cookies.set('username', userData.userName, { expires: 31 })
         isLoggedIn.value = true
         username.value = userData.userName
 
