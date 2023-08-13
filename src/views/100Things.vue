@@ -118,49 +118,78 @@ export default {
 };
 </script> -->
 <template>
-    <div class="todo-list">
-        <h2 class="title">{{ title }}</h2>
-        <ul>
-            <li v-for="(item, index) in todoItems" :key="index" style="list-style-type:none;">
-                <el-card class="item_card" shadow="hover" :body-style="{ padding: '0.1rem' }">
-                    <el-checkbox v-model="item.checked" size="large" :disabled="!isAdmin" style="padding-left: 1rem;">
-                    {{ item.text }}
-                </el-checkbox>
-            </el-card>
-                
-            </li>
-        </ul>
-    </div>
+  <div class="todo-list">
+    <h2 class="title">{{ title }}</h2>
+    <ul>
+      <li v-for="(item,idx, index) in todoItems" :key="index" style="list-style-type:none;">
+        <el-card class="item_card" shadow="hover" :body-style="{ padding: '0.1rem' }">
+          <!-- <el-checkbox v-model="item.isdone" size="large" :disabled="!isAdmin" style="padding-left: 1rem;" > -->
+            <el-checkbox v-model="item.isdone" size="large" style="padding-left: 1rem;" @click="handleCheckboxClick" class="checkbox"> 
+            <!-- {{ item.content }} -->
+            <!-- <span class="custom-checkbox-text">{{ item.content }}</span> -->
+            <span v-if="item.isdone" class="checked-text">{{ item.content }}</span>
+      <span v-else>{{ item.content }}</span>
+          </el-checkbox>
+        </el-card>
+
+      </li>
+    </ul>
+  </div>
 </template>
   
 <script>
 import { ref } from 'vue';
 import Cookies from 'js-cookie';
+import axios from "axios";
+import { API_BASE_URL } from '@/config.js';
 
 export default {
-    data() {
-        return {
-            // title: "如果说这一生有一件事最幸运 就是赌中亿分之一的机率遇见你",
-            title: "如果說這一生有一件事最幸運💖 \n 就是賭中億分之一的機率遇見你",
-            todoItems: [
-                { text: "Item 1", checked: false },
-                { text: "Item 2", checked: false },
-                { text: "Item 3", checked: false },
-            ],
-            isAdmin: ref(['rabbit', 'bear'].includes(Cookies.get('username'))),
-        };
+  data() {
+    return {
+      // title: "如果说这一生有一件事最幸运 就是赌中亿分之一的机率遇见你",
+      title: "如果說這一生有一件事最幸運💖 \n 就是賭中億分之一的機率遇見你",
+      todoItems: [
+        // { text: "Item 1", checked: false },
+        // { text: "Item 2", checked: false },
+        // { text: "Item 3", checked: false },
+      ],
+      isAdmin: ref(['rabbit', 'bear'].includes(Cookies.get('username'))),
+    };
+  },
+  watch: {
+    todoItems: {
+      handler(newVal, oldVal) {
+        if (this.isAdmin) {
+          this.updateCheckInfo();
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    handleCheckboxClick(event, item) {
+      if (!this.isAdmin) {
+        event.preventDefault(); // Prevent the default click behavior
+      }
     },
-    // mounted() {
-        
-    // },
-    methods: {
-        // handleChange(item) {
-        //     if (!this.isAdmin) {
-        //         alert("You are not allowed to change the item status.");
-        //         item.checked = !item.checked; // Reset the checkbox state
-        //     }
-        // },
+    updateCheckInfo() {
+      axios.post(`${API_BASE_URL}/update_100things`, this.todoItems)
     },
+  },
+  created() {
+    axios.get(`${API_BASE_URL}/get_100things`, {
+      headers: { 'Content-Type': 'application/json' },
+      params: {},
+    })
+      .then((response) => {
+        this.todoItems = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+
 };
 </script>
   
@@ -168,22 +197,37 @@ export default {
 @import '@/assets/fonts/fonts.css';
 
 .todo-list {
-    margin: 2rem;
-    /* text-align: center; */
-    display: flex;
+  margin: 2rem;
+  /* text-align: center; */
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .item_card {
-    height:2.5rem;
-    margin: 0.5rem;
-    width: 40rem;
+  height: 2.5rem;
+  margin: 0.5rem;
+  width: 40rem;
 }
+
 .title {
-    font-family: 'OZJiaotangxiawucha', sans-serif;
-    white-space: pre-wrap;
-    margin-bottom: 1rem;
+  font-family: 'OZJiaotangxiawucha', sans-serif;
+  white-space: pre-wrap;
+  margin-bottom: 1rem;
 }
+.checkbox {
+  font-family: 'QTXiaotu', sans-serif;
+}
+
+.checkbox .el-checkbox__input.is-checked .el-checkbox__inner {
+  background-color: #f596aa;/* Change this to your desired color */
+  border-color: #f596aa; /* Change this to your desired color */
+}
+
+.checkbox .checked-text {
+  color: #f596aa; /* Change this to your desired text color */
+}
+
 </style>
   

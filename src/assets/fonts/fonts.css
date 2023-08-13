@@ -6,13 +6,12 @@
     font-style: normal;
 } 
 
-/* for his whisper */
 @font-face {
-    font-family: 'HYQingyun';
-    src: url('HYQingyun.ttf');
+    font-family: 'QTXiaotu';
+    src: url('QTXiaotu.ttf');
     font-weight: normal;
     font-style: normal;
-} 
+}
 
 @font-face {
     font-family: 'FZShaeryingbi';

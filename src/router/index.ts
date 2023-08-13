@@ -1,7 +1,7 @@
 /*
  * @Author: Alchemistyui
  * @Date: 2023-01-29
- * @LastEditTime: 2023-07-15
+ * @LastEditTime: 2023-08-12
  * @FilePath: /RabiBear-Home-Web/src/router/index.ts
  * @Description: 
  * 
@@ -63,6 +63,11 @@ const router = createRouter({
       path: '/100Things',
       name: '100Things',
       component: () => import('../views/100Things.vue')
+    },
+    {
+      path: '/whisper',
+      name: 'whisper',
+      component: () => import('../views/Whisper.vue')
     }
   ]
 })

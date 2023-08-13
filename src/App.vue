@@ -18,14 +18,11 @@ import HelloWorld from './components/HelloWorld.vue'
         <el-menu-item index="1">
           <RouterLink class="router_link" to="/home">Home</RouterLink>
         </el-menu-item>
-        <el-menu-item index="2">
-          <RouterLink class="router_link" to="/maintenance">Gallery</RouterLink>
-        </el-menu-item>
         <el-menu-item index="3">
           <RouterLink class="router_link" to="/timelines">Timelines</RouterLink>
         </el-menu-item>
         <el-menu-item index="4">
-          <RouterLink class="router_link" to="/100Things">100 Things & Wish List</RouterLink>
+          <RouterLink class="router_link" to="/100Things">100 Things</RouterLink>
         </el-menu-item>
         <el-menu-item index="5">
           <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
@@ -38,25 +35,20 @@ import HelloWorld from './components/HelloWorld.vue'
 
 
         <el-menu-item index="7">
-          <RouterLink class="router_link" to="/maintenance">Whisper</RouterLink>
+          <RouterLink class="router_link" to="/whisper">Whisper</RouterLink>
         </el-menu-item>
         <el-menu-item index="8">
-        
           <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
         </el-menu-item>
         <el-menu-item index="9">
           <RouterLink class="router_link" to="/maintenance">Records</RouterLink>
         </el-menu-item>
 
-        <!-- <el-sub-menu index="10">
-          <template #title>Tools</template>
-          <el-menu-item index="10-1">
-            <RouterLink class="router_link" to="/what_to_eat">What To Eat</RouterLink>
+      <el-menu-item index="10">
+            <RouterLink class="router_link" to="/maintenance">Gallery</RouterLink>
           </el-menu-item>
-          <el-menu-item index="10-2">
-            <RouterLink class="router_link" to="/tracker">Tracker</RouterLink>
-          </el-menu-item>
-      </el-sub-menu> -->
+          <el-menu-item index="11">
+            <RouterLink class="router_link" to="/maintenance">Expiry Alert</RouterLink></el-menu-item>
 
       <!-- <el-sub-menu index="7">
         <template #title>Records</template>
@@ -69,14 +61,16 @@ import HelloWorld from './components/HelloWorld.vue'
 
 
 
-        <el-sub-menu index="11">
-          <!-- <template #title><img alt="logo" src="@/assets/imgs/home_card/icon_lock.png" width="30" height="30" /></template> -->
-          <!-- <img class="card_img" style="width: 40%;" src="../assets/imgs/home_card/icon_lock.png" /> -->
-          <!-- <el-menu-item index="8-1">Accounting</el-menu-item> -->
-          <el-menu-item index="11-1">Photos</el-menu-item>
-          <el-menu-item index="11-2">Expiry Alert</el-menu-item>
-          <!-- <el-menu-item index="3-3">Diary</el-menu-item> -->
-        </el-sub-menu>
+        <!-- <el-sub-menu index="11">
+          <template #title>More</template>
+          <el-menu-item index="11-1">
+            <RouterLink to="/maintenance">Gallery</RouterLink>
+          </el-menu-item>
+          <el-menu-item index="11-2">
+            <RouterLink to="/maintenance">Expiry Alert</RouterLink></el-menu-item>
+        </el-sub-menu> -->
+
+
       </el-menu>
       <!-- </nav> -->
     </el-header>

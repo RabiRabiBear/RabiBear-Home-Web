@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-07-08
+LastEditTime: 2023-08-13
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -81,6 +81,37 @@ def get_data():
     with open(os.path.join(data_path, user_name, file_type_path[opt_type]),"r") as f:
         data_dict = json.load(f)
     return jsonify(data_dict)
+
+@app.route('/get_100things', methods=['GET'])
+def get_100things():
+    with open(os.path.join(data_path, "100things.json"),"r") as f:
+        data_dict = json.load(f)
+    return jsonify(data_dict)
+
+@app.route('/update_100things', methods=['POST'])
+def update_100things():
+    data = request.get_json()
+    with open(os.path.join(data_path, "100things.json"),"w") as f:
+        json.dump(data, f, ensure_ascii=False)
+    # print(data[0])
+    return jsonify(success=True)
+
+@app.route('/get_whisper', methods=['GET'])
+def get_whisper():
+    with open(os.path.join(data_path, "whisper.json"),"r") as f:
+        data_dict = json.load(f)
+    return jsonify(data_dict[::-1])
+
+@app.route('/update_whisper', methods=['POST'])
+def update_whisper():
+    data = request.get_json()
+    with open(os.path.join(data_path, "whisper.json")) as f:
+        data_dict = json.load(f)
+    data_dict.append(data)
+    with open(os.path.join(data_path, "whisper.json"),"w") as f:
+        json.dump(data_dict, f, ensure_ascii=False)
+    # print(data[0])
+    return jsonify(success=True)
 
 @app.route('/init_new_day', methods=['POST'])
 def init_new_day():
