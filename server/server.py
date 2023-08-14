@@ -1,7 +1,7 @@
 '''
 Author: Alchemist
 Date: 2023-04-12
-LastEditTime: 2023-08-13
+LastEditTime: 2023-08-14
 FilePath: /RabiBear-Home-Web/server/server.py
 Description: 
 
@@ -19,9 +19,6 @@ CORS(app)
 
 data_path = "./resources/"
 user_info_file = "user_info.json"
-# saving_pot_file = "saving_pot.json"
-# daily_todo_file = "daily_todo.json"
-# today_todo_file = "today_todo.json"
 file_type_path = {
     'saving_pot': "saving_pot.json",
     'daily_todo': "daily_todo.json",
@@ -86,6 +83,20 @@ def get_data():
     with open(os.path.join(data_path, user_name, file_type_path[opt_type]),"r") as f:
         data_dict = json.load(f)
     return jsonify(data_dict)
+
+@app.route('/get_avatar', methods=['GET'])
+def get_avatar():
+    # user_name = request.args.get('user_name')
+    # import pdb; pdb.set_trace()
+    user_names = request.args.getlist('user_name[]')
+    response = {}
+    
+    for user in user_names:
+        with open(os.path.join(data_path, user, 'avatar.png'), 'rb') as f:
+            avatar_data = f.read()
+        base64_avatar = base64.b64encode(avatar_data).decode('utf-8')
+        response[user] = base64_avatar
+    return jsonify(response)
 
 @app.route('/get_100things', methods=['GET'])
 def get_100things():

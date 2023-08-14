@@ -56,7 +56,6 @@ import HelloWorld from './components/HelloWorld.vue'
           <el-menu-item index="7-2">On Games</el-menu-item>
           <el-menu-item index="7-3">On The Way</el-menu-item>
           <el-menu-item index="7-4">Recipes</el-menu-item>
-          <el-menu-item index="7-5">Tracking</el-menu-item>
         </el-sub-menu> -->
 
 
