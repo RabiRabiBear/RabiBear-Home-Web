@@ -27,7 +27,7 @@
         </el-timeline-item>
     </el-timeline>
 
-    <div class="input-zone">
+    <div class="input-zone" v-show="isAdmin">
         <div class="user-info" style="margin-right: 1em; margin-top: -0.5em;">
             <el-avatar :src="userAvatar" :size="50"></el-avatar>
             <div class="user-name" style="margin-top: -0.5em;">{{ userName }}</div>
@@ -55,8 +55,7 @@ export default {
             userAvatar: localStorage.getItem('useravatar'),
             bearAvatar: '',
             rabbitAvatar: '',
-            // bearAvatar: axios.get(`${API_BASE_URL}/get_avatar/bear`).then(res => res.data),
-            // rabbitAvatar: axios.get(`${API_BASE_URL}/get_avatar/rabbit`).then(res => res.data),
+            isAdmin: ref(['rabbit', 'bear'].includes(Cookies.get('username'))),
         }
     },
     methods: {

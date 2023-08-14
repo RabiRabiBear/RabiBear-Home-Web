@@ -11,7 +11,7 @@ import HelloWorld from './components/HelloWorld.vue'
           active-text-color="#ee827c">
 
         <el-menu-item index="0" class="logo_router">
-          <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/avatar_rabbit.png" width="50" height="50" style="display: flex; align-items: center;"/>
+          <RouterLink class="router_link" to="/"><img alt="logo" class="logo" src="@/assets/imgs/web_avatar.png" width="50" height="50" style="display: flex; align-items: center;"/>
         </RouterLink>
         </el-menu-item>
         

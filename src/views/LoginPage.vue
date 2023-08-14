@@ -10,13 +10,18 @@
 
 
 <template>
+  <div class="avatar">
+    <el-avatar :size="70" :src="useravatar" />
+  </div>
+  
   <div v-if="isLoggedIn" class="loggedin">
-    <img :src="useravatar" alt="User Avatar" style="width: 5em" />
+    <!-- <el-avatar :size="70" :src="useravatar" /> -->
     <div>{{ username }}</div>
     <div>{{ slogan }}</div>
     <el-button type="primary" plain @click="logout">Logout</el-button>
   </div>
   <div v-else class="login">
+    <!-- <el-avatar :size="70" :src="useravatar" /> -->
     <!-- <el-form :model="form" label-position="top" label-width="120px" class="login-form">
       <el-form-item label="Name" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -28,29 +33,19 @@
         <el-button type="primary" plain @click="submitForm">Login</el-button>
       </el-form-item>
     </el-form> -->
-    <el-form :model="form" label-position="top" label-width="120px" class="login-form">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Name" prop="name">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Password" prop="password">
-            <el-input type="password" v-model="form.password" @keyup.enter="submitForm"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24" style="text-align: center;">
-          <el-form-item>
-            <el-button type="primary" plain @click="submitForm">Login</el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-form :model="form" label-position="top" label-width="150px" class="login-form">
+    <el-form-item label="Name" prop="name">
+      <el-input v-model="form.name" class="input-field"></el-input>
+    </el-form-item>
+    
+    <el-form-item label="Password" prop="password">
+      <el-input type="password" v-model="form.password" @keyup.enter="submitForm" class="input-field"></el-input>
+    </el-form-item>
+    
+    <el-form-item>
+      <el-button type="primary" plain @click="submitForm" class="centered-button">Login</el-button>
+    </el-form-item>
+  </el-form>
 
   </div>
 </template>
@@ -72,7 +67,7 @@ export default {
     const isLoggedIn = ref(false)
     const username = ref('')
     const slogan = ref('')
-    const useravatar = ref('')
+    const useravatar = ref(defaultAvatar)
 
     const submitForm = async () => {
       // const response = await fetch('http://localhost:8000/login', {
@@ -125,7 +120,7 @@ export default {
       isLoggedIn.value = false
       username.value = ''
       slogan.value = ''
-      useravatar.value = ''
+      useravatar.value = defaultAvatar
     }
 
     // check if user is logged in on page load
@@ -144,35 +139,59 @@ export default {
 </script>
   
 <style scoped>
-.login-form {
-  max-width: 400px;
-  margin: 0 auto;
-  align-items: center;
+
+.avatar {
+  margin-top: 4em;
+  text-align: center;
 }
+/* .login-form {
+  max-width: 15em;
+  margin: 0;
+  align-items: center;
+} */
 
 .loggedin {
   text-align: center;
-  margin: 4em auto;
-  max-width: 400px;
-
-  /* font-family: 'Parisienne', cursive; */
   font-family: 'Dancing Script', cursive;
   text-align: center;
   font-size: 1.2rem;
 }
 
-.loggedin img {
-  border-radius: 50%;
-  margin-bottom: 1em;
-  width: 100px;
+.login {
+  /* text-align: center;
+  margin: 4em auto;
+  max-width: 400px;
+  text-align: center;*/
+  /* max-width: 150em; */
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+  font-size: 1.2rem; 
+}
+
+/deep/.el-input__inner {
+  font-family: 'Dancing Script', cursive;
 }
 
 button {
-  font-family: 'Parisienne', cursive;
-  /* font-family: 'Dancing Script', cursive; */
+  /* font-family: 'Parisienne', cursive; */
+  font-family: 'Dancing Script', cursive;
   text-align: center;
 }
-
+.centered-button {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%; /* Ensure the button takes full width */
+}
+/* .login_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 /* 
 el-row {
   margin-bottom: 1rem;
