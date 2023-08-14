@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-22
- * @LastEditTime: 2023-07-18
+ * @LastEditTime: 2023-08-14
  * @FilePath: /RabiBear-Home-Web/src/views/LoginPage.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
 </template>
   
 <script>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import Cookies from 'js-cookie'
 import defaultAvatar from '@/assets/imgs/default_avatar.png';
@@ -76,48 +76,43 @@ export default {
 
     const submitForm = async () => {
       // const response = await fetch('http://localhost:8000/login', {
+        const expire_date = 31
         const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       })
+      
 
       if (response.ok) {
         const userData = await response.json()
-        console.log(userData)
-        Cookies.set('username', userData.userName, { expires: 31 })
+        // console.log(userData)
+        Cookies.set('username', userData.userName, { expires: expire_date })
         isLoggedIn.value = true
         username.value = userData.userName
 
 
-
+        
         if (userData['slogan']) {
           slogan.value = userData.slogan
         } else {
           slogan.value = '啊呜啊呜吐泡泡'
         }
-        Cookies.set('slogan', slogan.value, { expires: 14 })
+        Cookies.set('slogan', slogan.value, { expires: expire_date })
 
-        const img = new Image();
-        // img.src = userData.avatar;
-        
-        // img.src = "/home/biao/RabiBear-Home-Web/server/resources/" + username.value + "/avatar.png";
-        img.src = "../server/resources/" + username.value + "/avatar.png";
-        console.log(img.src)
-        if (img.width > 0 && img.height > 0) {
-          console.log("avatar exists")
-          useravatar.value = img.src
+
+        // console.log(userData['avatar'])
+        if (userData['avatar']) {
+          useravatar.value = `data:image/png;base64,${userData['avatar']}`;
+          
+
+          // Cookies.set('useravatar', `data:image/png;base64,${userData['avatar']}`, { expires: expire_date })
+          // console.log('>??:', Cookies.get('useravatar'));
         } else {
-          // useravatar.value = "./src/assets/imgs/default_avatar.png";
           useravatar.value = defaultAvatar
         }
-        // if ('useravatar' in userData) {
-        //   useravatar.value = userData.avatar
-        // } else {
-        //   useravatar.value = "../../assets/default_avatar.png";
-        // }
-        Cookies.set('useravatar', useravatar.value, { expires: 14 })
-        console.log(useravatar.value, slogan.value)
+        localStorage.setItem('useravatar', `data:image/png;base64,${userData['avatar']}`);
+        
       } else {
         ElMessage.error('Login failed. Please try again.')
       }
@@ -140,6 +135,7 @@ export default {
       isLoggedIn.value = true
       username.value = usernameCookie
       slogan.value = sloganCookie
+      useravatar.value = localStorage.getItem('useravatar')
     }
 
     return { form, submitForm, isLoggedIn, username, slogan, useravatar, logout }

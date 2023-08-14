@@ -1,13 +1,20 @@
 <!--
  * @Author: Alchemistyui
  * @Date: 2023-07-12
- * @LastEditTime: 2023-08-13
+ * @LastEditTime: 2023-08-14
  * @FilePath: /RabiBear-Home-Web/src/views/Whisper.vue
  * @Description: 
  * 
  * Copyright (c) 2023, All Rights Reserved. 
 -->
 <template>
+
+    <div class="title">
+        <el-avatar :src="bearAvatar" size="large"></el-avatar>
+        <el-avatar :src="rabbitAvatar" size="large"></el-avatar>
+        <h1>In your whisper, I find the secrets of the universe.</h1>
+    </div>
+
     <el-timeline class="timeline" hollow="true">
         <!-- 循环判断索引的奇偶区分开左右 -->
         <el-timeline-item v-for="(msg, index) in this.msgs" :key="index"
@@ -25,7 +32,7 @@
             <div class="user-name">{{ userName }}</div>
         </div>
         <div class="input-section">
-            <el-input v-model="inputText" placeholder="Type your message..." clearable></el-input>
+            <el-input v-model="inputText" type="textarea" placeholder="Whispering hearts, tangled souls." clearable></el-input>
             <el-button type="primary" @click="submitMessage">Submit</el-button>
         </div>
     </div>
@@ -44,6 +51,7 @@ export default {
             msgs: [],
             userName: ref(Cookies.get('username')),
             inputText: '',
+            userAvatar: localStorage.getItem('useravatar')
         }
     },
     methods: {

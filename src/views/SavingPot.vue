@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-04-15
- * @LastEditTime: 2023-05-07
+ * @LastEditTime: 2023-08-14
  * @FilePath: /RabiBear-Home-Web/src/views/SavingPot.vue
  * @Description: 
  * 
@@ -105,7 +105,7 @@ export default {
         this.savedAmount = response.data.savedAmount;
         this.shownAmount = response.data.shownAmount;
         this.targetAmount = response.data.targetAmount;
-        console.log(this.savedAmount, this.shownAmount, this.targetAmount);
+        // console.log(this.savedAmount, this.shownAmount, this.targetAmount);
       });
   }
 };

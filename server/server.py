@@ -7,8 +7,9 @@ Description:
 
 Copyright (c) 2023, All Rights Reserved. 
 '''
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
+import base64
 import json
 import os
 
@@ -49,7 +50,11 @@ def login():
             slogan = users[name]['slogan'] if 'slogan' in users[name].keys() else None
             # avatar = users[name]['avatar'] if 'avatar' in users[name].keys() else None
             # response = {'userName': name, 'slogan': slogan, 'avatar': avatar}
-            response = {'userName': name, 'slogan': slogan}
+            avatar_path = f'{data_path}/{name}/avatar.png'
+            with open(avatar_path, 'rb') as avatar_file:
+                avatar_data = avatar_file.read()
+            base64_avatar = base64.b64encode(avatar_data).decode('utf-8')
+            response = {'userName': name, 'slogan': slogan, 'avatar': base64_avatar}
             return jsonify(response)
         else:
             return jsonify({'error': 'Invalid credentials'}), 401
