@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-07-08
+ * @LastEditTime: 2023-11-06
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -84,6 +84,7 @@ export default {
     return {
       today: [],
       // daily: [],
+      // json_todos: [],
       hobbies: [],
       exerciseDate: [],
       skincareDate: [],
@@ -113,9 +114,15 @@ export default {
       // combine today and daily todos
       const combinedData = {};
 
-
+      const test_list = [1,2,3,4,5];
+      const test_list_hashMap = [{1:1,2:2,3:3}];
+      console.log("test_list", test_list);
+      console.log("test_list_hashMap", test_list_hashMap);
+      console.log("test_list_hashMap[0]", test_list_hashMap[0]);
+      console.log('today', today[0])
       // create new arrays for today and daily
       const todayTodos = JSON.parse(JSON.stringify(today));
+      console.log('todayTodos', todayTodos)
 
 
 
@@ -191,39 +198,25 @@ export default {
       });
 
 
-    const json_todos = []
+    // let json_todos = []
     // Fetch data for list 1 from server and assign it to list1
     axios.get(`${API_BASE_URL}/get_data`, {
       headers: { 'Content-Type': 'application/json' },
       params: { user_name: this.userName, opt_type: 'today_todo' },
     })
       .then((response) => {
-        json_todos.push(response.data)
+        // console.log('response', response.data)
+        // json_todos.push(response.data)
+        // this.json_todos = response.data;
+        this.countDoneTodos(response.data, null);
+        // console.log('aaaa json_todos', json_todos)
         this.today = response.data[formattedDate];
       })
       .catch((error) => {
         console.error(error);
       });
 
-
-    // Fetch data for list 2 from server and assign it to list2
-    // axios.get(`${API_BASE_URL}/get_data`, {
-    //   headers: { 'Content-Type': 'application/json' },
-    //   params: { user_name: this.userName, opt_type: 'daily_todo' },
-    // })
-    //   .then((response) => {
-    //     json_todos.push(response.data)
-    //     this.daily = response.data[formattedDate];
-    //     console.log('daily', this.daily)
-    //   })
-    //   .then(() => {
-    //     // json_todos array may still be empty if the axios request to the server hasn't finished executing yet. The axios.get() method is asynchronous, meaning that it doesn't block the execution of the rest of the code while waiting for a response from the server.
-    //     this.countDoneTodos(json_todos[0], json_todos[1]);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-
+    // console.log('bbb json_todos', json_todos)
     axios.get(`${API_BASE_URL}/get_data`, {
       headers: { 'Content-Type': 'application/json' },
       params: { user_name: this.userName, opt_type: 'hobbies' },
@@ -234,9 +227,8 @@ export default {
         // console.log('daily', this.daily)
       })
       .then(() => {
-        // json_todos array may still be empty if the axios request to the server hasn't finished executing yet. The axios.get() method is asynchronous, meaning that it doesn't block the execution of the rest of the code while waiting for a response from the server.
-        // this.countDoneTodos(json_todos[0], json_todos[1]);
-        this.countDoneTodos(json_todos[0], null);
+        // console.log('json_todos', json_todos)
+        // this.countDoneTodos(json_todos[0], null);
       })
       .catch((error) => {
         console.error(error);
