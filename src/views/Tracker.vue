@@ -1,7 +1,7 @@
 <!--
  * @Author: Alchemist
  * @Date: 2023-03-04
- * @LastEditTime: 2023-11-06
+ * @LastEditTime: 2023-11-24
  * @FilePath: /RabiBear-Home-Web/src/views/Tracker.vue
  * @Description: 
  * 
@@ -116,20 +116,12 @@ export default {
 
       const test_list = [1,2,3,4,5];
       const test_list_hashMap = [{1:1,2:2,3:3}];
-      console.log("test_list", test_list);
-      console.log("test_list_hashMap", test_list_hashMap);
-      console.log("test_list_hashMap[0]", test_list_hashMap[0]);
-      console.log('today', today[0])
       // create new arrays for today and daily
       const todayTodos = JSON.parse(JSON.stringify(today));
-      console.log('todayTodos', todayTodos)
-
-
 
       Object.keys(todayTodos).forEach(key => {
         combinedData[key] = todayTodos[key];
       });
-      console.log('combined data', combinedData)
 
       if(daily){
         const dailyTodos = JSON.parse(JSON.stringify(daily));
@@ -339,9 +331,10 @@ export default {
   background: red;
   color:  yellow;
 }
+}
 .skincare_calendar {
   &:before{
-    content: 'Skincare Calendar';
+    content: 'Leetcode Calendar';
     text-align: center;
     display: block;
     color: #38778a;
@@ -349,5 +342,4 @@ export default {
     margin-bottom: 5px;
   }
 }
-  }
 </style>
